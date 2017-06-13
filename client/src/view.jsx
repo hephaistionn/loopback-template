@@ -1,4 +1,5 @@
 
+import {render} from 'react-dom';
 import Reflux from 'reflux';
 import React from 'react';
 import {Store, actions} from './model';
@@ -24,4 +25,4 @@ class App extends Reflux.Component {
     }
 };
 
-export default App;  
+render(<App label='list'/>, document.getElementById('app'));    

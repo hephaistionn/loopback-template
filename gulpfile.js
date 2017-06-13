@@ -5,7 +5,7 @@ var sass = require('gulp-sass');
 var source = require('vinyl-source-stream');
 
 gulp.task('build-js', function () {
-    return browserify({entries: './client/index.jsx', extensions: ['.jsx'], debug: true})
+    return browserify({entries: './client/src/view.jsx', extensions: ['.jsx'], debug: true})
         .transform('babelify', {presets: ['es2015', 'react']})
         .bundle()
         .pipe(source('bundle.js'))
@@ -13,7 +13,7 @@ gulp.task('build-js', function () {
 });
 
 gulp.task('build-css', function () {
-  return gulp.src('./client/style.scss')
+  return gulp.src('./client/src/style.scss')
     .pipe(sass().on('error', sass.logError))
     .pipe(gulp.dest('client/.dist'));
 });
