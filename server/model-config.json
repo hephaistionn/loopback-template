@@ -1,6 +1,7 @@
 {
   "_meta": {
     "sources": [
+      "./models/account",
       "loopback/common/models",
       "loopback/server/models",
       "../common/models",
@@ -14,29 +15,33 @@
     ]
   },
   "User": {
-    "dataSource": "db"
+    "dataSource": "mongo"
   },
   "AccessToken": {
-    "dataSource": "db",
+    "dataSource": "mongo",
     "public": false
   },
   "ACL": {
-    "dataSource": "db",
+    "dataSource": "mongo",
     "public": false
   },
   "RoleMapping": {
-    "dataSource": "db",
+    "dataSource": "mongo",
     "public": false,
     "options": {
       "strictObjectIDCoercion": true
     }
   },
   "Role": {
-    "dataSource": "db",
+    "dataSource": "mongo",
     "public": false
   },
-  "Account": {
-    "dataSource": "db",
+  "Member": {
+    "dataSource": "mongo",
+    "public": true
+  },
+  "Event": {
+    "dataSource": "mongo",
     "public": true
   }
 }

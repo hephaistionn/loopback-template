@@ -1,17 +1,24 @@
 {
-  "name": "Account",
-  "base": "User",
+  "name": "Event",
+  "base": "PersistedModel",
   "idInjection": true,
   "options": {
     "validateUpsert": true
   },
   "properties": {
-    "username": {
+    "date": {
+      "type": "date"
+    },
+    "banner": {
+      "type": "string"
+    },
+    "description": {
       "type": "string",
       "required": true
     },
-    "picture": {
-      "type": "string"
+    "title": {
+      "type": "string",
+      "required": true
     }
   },
   "validations": [],

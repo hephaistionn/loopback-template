@@ -40,9 +40,9 @@
       ]
     }
   },
-  "files": {  
+  "files": {
     "loopback#static": {
-      "params": "$!../client/.dist" 
+      "params": "$!../client/.dist"
     }
   },
   "final": {
