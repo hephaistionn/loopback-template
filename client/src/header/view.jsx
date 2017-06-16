@@ -7,7 +7,6 @@ class Header extends Reflux.Component {
     
     constructor(props){
         super(props);   
-        this.actions = actions;
         this.store = Store; 
     }
 

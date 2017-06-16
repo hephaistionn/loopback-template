@@ -28,6 +28,7 @@
     "react": "^15.1.0",
     "react-dom": "^15.1.0",
     "reflux": "^6.4.1",
+    "reflux-router": "^1.2.0",
     "serve-favicon": "^2.0.1",
     "strong-error-handler": "^2.0.0",
     "vinyl-source-stream": "^1.1.0"

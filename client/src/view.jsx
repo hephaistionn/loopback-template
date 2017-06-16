@@ -2,27 +2,36 @@
 import {render} from 'react-dom';
 import Reflux from 'reflux';
 import React from 'react';
-import {Store, actions} from './model';
 
+
+//PAGES
 import Home from './home/view'; 
 import Header from './header/view';
+import Login from './login/view';
+import Events from './events/view';
+
+//STORE
+import {Store, actions} from './model';
 
 class App extends Reflux.Component { 
     
     constructor(props){
-        super(props);   
-        this.actions = actions;
+        super(props);
         this.store = Store; 
-    }  
-    
+    }
+
     render() {
+        const route = this.state.route;
         return (
             <div className='app'> 
                 <Header title='My template'/>
-                <Home label='My list'/>
+                {route[0] === 'events' && <Events eventId={route[1]}/>}
+                {route[0] === 'home' && <Home label='list' highlight={route[1]}/>}
+                {route[0] === 'login' && <Login />}
             </div>
         );
     }
 };
 
-render(<App label='list'/>, document.getElementById('app'));    
+
+render(<App />, document.getElementById('app'));    

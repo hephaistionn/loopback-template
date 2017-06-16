@@ -6,30 +6,26 @@ import {Store, actions} from './model';
 class Home extends Reflux.Component { 
     
     constructor(props){
-        super(props);   
-        this.state = {names:[], currentName:''};
-        this.actions = actions;
+        super(props);
         this.store = Store; 
     }  
 
-    _onChangeName(e) {   
-        this.setState({currentName: e.target.value});
+    _onChangeName(e) {
+        actions.changeName(e.target.value);
     }
 
     _addName(e) {
-        e.preventDefault();
-        this.actions.addName(this.state.currentName);
+        actions.addName(this.state.currentName);
     }
 
     _removeName(e) {
-        e.preventDefault();
-        this.actions.removeName();
+        actions.removeName();
     }
 
     render() {
         return (
             <div className='home'> 
-                <label> {this.props.label} </label>
+                <label> {this.props.label}</label>
                 <form  onSubmit={this._addName.bind(this)}>
                     <input type="text" placeholder="Nom" value={this.state.currentName} onChange={this._onChangeName.bind(this)}/>
                     <input type="submit" value="Enregistrer" />

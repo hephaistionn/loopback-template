@@ -1,18 +1,33 @@
 import Reflux from 'reflux'; 
+import RefluxRouter from 'reflux-router';
+//import {Reflux, React, RefluxRouter} from './lib';
+
 
 //Action
-export const actions = Reflux.createActions(['addName']);
+export const actions = Reflux.createActions(['getCurrentRoute']);
+
+//ROUTING
+RefluxRouter.initializeRouting('', '/#/'); 
+RefluxRouter.onUnknownRoute = actions.getCurrentRoute;
  
 //Store
 export class Store extends Reflux.Store {
 
 	constructor() {
         super();
-        this.state = {names:['test']};
+        this.state = {
+        	route: ''
+        };
+        this.onGetCurrentRoute();
         this.listenables = actions;
     }
 
-    onAddName(name) {
-        this.state.names.push(name); 
+    onGetCurrentRoute() {
+    	const currentRoute = RefluxRouter.getRoute();
+    	const route = currentRoute.split('/').filter(e => String(e).trim());
+        this.setState({
+        	route: route
+        });
+
     }
 }
