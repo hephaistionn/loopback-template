@@ -1,4 +1,5 @@
-import Reflux from 'reflux'; 
+import Reflux from 'reflux';
+import axios from 'axios'; 
 
 //Action
 export const actions = Reflux.createActions(['refresh']);
@@ -15,8 +16,15 @@ export class Store extends Reflux.Store {
     }
 
     onRefresh() {
-    	this.setState({
-			events: ['event1','event2']
-    	})
+        axios.get('/api/Events')
+        .then(response => {
+            this.setState({
+                events: response.data
+            });
+        })
+        .catch(error => {
+            console.log(error);
+        });
+ 
     }
 }

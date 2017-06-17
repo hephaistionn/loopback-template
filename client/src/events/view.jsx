@@ -1,9 +1,8 @@
 
 import Reflux from 'reflux';
 import React from 'react';
+import {Route,Link} from 'react-router-dom'
 import {Store, actions} from './model';
-
-import Event from './event/view';
 
 class Events extends Reflux.Component { 
     
@@ -19,14 +18,16 @@ class Events extends Reflux.Component {
     render() {
         return (
         	<div className='events'>
-        	{this.props.eventId && <Event eventID={this.props.eventId}/>}
-        	{!this.props.eventId &&  
                 <ul>
-                {this.state.events.map((name, index) =>
-                        <li key={index}>{name}</li>
+                {this.state.events.map((event, index) =>
+                        <li key={index}>
+                        <Link to={'/events/'+event.id}>  
+                            <p>title : {event.title}</p>
+                            <p>desc : {event.description}</p>
+                        </Link>
+                        </li>
                 )} 
                 </ul> 
-            }
             </div>
         );
     }

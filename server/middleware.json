@@ -41,7 +41,14 @@
     }
   },
   "files": {
-    "loopback#static": {
+    "loopback#static": { 
+      "paths": [
+        "/login/",
+        "/events/:id",
+        "/events/",
+        "/editor/",
+         "/"
+       ], 
       "params": "$!../client/.dist"
     }
   },

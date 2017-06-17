@@ -11,6 +11,7 @@
     "dev": "gulp watch"
   },
   "dependencies": {
+    "axios": "^0.16.2",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "babelify": "^7.3.0",
@@ -20,6 +21,7 @@
     "express": "^4.15.3",
     "gulp": "^3.9.1",
     "gulp-sass": "^3.1.0",
+    "gulp-uglify": "^3.0.0",
     "helmet": "^1.3.0",
     "loopback": "^3.0.0",
     "loopback-boot": "^2.6.5",
@@ -27,10 +29,11 @@
     "loopback-connector-mongodb": "^1.18.1",
     "react": "^15.1.0",
     "react-dom": "^15.1.0",
+    "react-router-dom": "^4.1.1",
     "reflux": "^6.4.1",
-    "reflux-router": "^1.2.0",
     "serve-favicon": "^2.0.1",
     "strong-error-handler": "^2.0.0",
+    "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0"
   },
   "devDependencies": {

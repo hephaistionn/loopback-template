@@ -1,4 +1,5 @@
 import Reflux from 'reflux'; 
+import axios from 'axios'; 
 
 //Action
 export const actions = Reflux.createActions(['refresh']);
@@ -15,10 +16,13 @@ export class Store extends Reflux.Store {
         };
     }
 
-    onRefresh() {
-    	this.setState({
-        	title: 'Event : '+ Math.floor(Math.random()*100),
-        	description: 'dsfdsfsdf sdfsdfdsf sdfdsfs sdfsdfsd sdfds'
+    onRefresh(eventId) {
+        axios.get('/api/Events/'+eventId)
+        .then(response => {
+            this.setState(response.data);
+        })
+        .catch(error => {
+            console.log(error);
         });
     }
 }

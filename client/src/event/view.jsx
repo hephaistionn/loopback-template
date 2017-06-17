@@ -11,11 +11,7 @@ class Event extends Reflux.Component {
     }  
 
     componentDidMount() {
-        actions.refresh();
-    }
-
-    componentWillReceiveProps() {
-        actions.refresh();
+        actions.refresh(this.props.match.params.eventId);
     }
 
     render() {

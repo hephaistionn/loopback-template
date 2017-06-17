@@ -16,6 +16,7 @@ class Home extends Reflux.Component {
 
     _addName(e) {
         actions.addName(this.state.currentName);
+        e.preventDefault();  
     }
 
     _removeName(e) {
