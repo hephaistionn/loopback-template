@@ -21,7 +21,7 @@ class EventEditor extends Reflux.Component {
 
     render() {
         return (
-            <div className='eventEditor'> 
+            <div className='eventEditor mdl-grid'> 
                 <form  onSubmit={this._saveForm.bind(this)}>
                     <p>id:{this.state.id }</p>
                     <input type="text" placeholder="title" value={this.state.title} onChange={this._onChangeForm.bind(this)}/>

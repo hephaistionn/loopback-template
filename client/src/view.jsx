@@ -25,19 +25,21 @@ class App extends Reflux.Component {
     render() {
         return (
             <BrowserRouter>
-                <div className='app'> 
-                      <ul>
-                        <li><Link to="/">Home</Link></li>
-                        <li><Link to="/events">Event</Link></li>
-                        <li><Link to="/login">Login</Link></li>
-                        <li><Link to="/editor">Editor</Link></li>
-                      </ul>
+                <div className='mdl-layout'> 
                     <Header title='My template'/>
-                    <Route exact path="/" component={Home}/>
-                    <Route exact path="/events" component={Events}/>
-                    <Route path={'/events/:eventId'} component={Event}/>
-                    <Route exact path="/login" component={Login}/>
-                    <Route path="/editor" component={EventEditor}/>
+                    <div className='mdl-layout__content'>
+                        <div className="mdl-grid">
+                            <div className="mdl-layout-spacer"></div> 
+                            <div className='mdl-cell mdl-cell--6-col box-shadow'>  
+                                <Route exact path="/" component={Home}/>
+                                <Route exact path="/events" component={Events}/>
+                                <Route path={'/events/:eventId'} component={Event}/>
+                                <Route exact path="/login" component={Login}/>
+                                <Route path="/editor" component={EventEditor}/>
+                            </div>  
+                            <div className="mdl-layout-spacer"></div>
+                        </div>         
+                    </div>
                 </div>
             </BrowserRouter>
         );

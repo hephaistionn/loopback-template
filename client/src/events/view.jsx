@@ -17,7 +17,7 @@ class Events extends Reflux.Component {
 
     render() {
         return (
-        	<div className='events'>
+        	<div className='events  mdl-grid'>
                 <ul>
                 {this.state.events.map((event, index) =>
                         <li key={index}>

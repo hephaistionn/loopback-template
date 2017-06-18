@@ -16,7 +16,7 @@ class Event extends Reflux.Component {
 
     render() {
         return (
-            <div className='event'> 
+            <div className='event mdl-grid'> 
                <h1>{this.state.title}</h1>
                <p>{this.state.description}</p>
             </div>

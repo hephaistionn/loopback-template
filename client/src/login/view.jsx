@@ -24,7 +24,7 @@ class Login extends Reflux.Component {
 
     render() {
         return (
-            <div className='login'> 
+            <div className='login mdl-grid'>  
                 <form  onSubmit={this._login.bind(this)}>
                     <input type="text" placeholder="username" value={this.state.currentUsername} onChange={this._onChangeUsername.bind(this)}/>
                     <input type="password" placeholder="password" value={this.state.currentPassword} onChange={this._onChangePassword.bind(this)}/>

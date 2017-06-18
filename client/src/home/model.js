@@ -18,7 +18,10 @@ export class Store extends Reflux.Store {
     onAddName(name) {
     	const names = this.state.names;
     	names.push(name);
-    	this.setState({names: names});
+    	this.setState({
+            names: names,
+            currentName:''
+        });
     }
 
     onRemoveName() {

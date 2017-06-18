@@ -25,18 +25,18 @@ class Home extends Reflux.Component {
 
     render() {
         return (
-            <div className='home'> 
-                <label> {this.props.label}</label>
-                <form  onSubmit={this._addName.bind(this)}>
-                    <input type="text" placeholder="Nom" value={this.state.currentName} onChange={this._onChangeName.bind(this)}/>
-                    <input type="submit" value="Enregistrer" />
-                </form>
-                <ul>
-                {this.state.names.map((name, index) =>
-                        <li key={index}>{name}</li>
-                )} 
-                </ul> 
-                {this.state.names.length>0 && <button onClick={this._removeName.bind(this)}>delete</button>}
+            <div className='home mdl-grid'>
+                    <form className='mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col' onSubmit={this._addName.bind(this)}>
+                        <label> {this.props.label}</label>
+                        <input className="mdl-textfield__input" type="text" placeholder="Nom" value={this.state.currentName} onChange={this._onChangeName.bind(this)}/>
+                        <input type="submit" value="Enregistrer" />
+                    </form>
+                    <ul className='mdl-cell mdl-cell--12-col'>
+                    {this.state.names.map((name, index) =>
+                            <li key={index}>{name}</li>
+                    )} 
+                    </ul> 
+                    {this.state.names.length>0 && <button onClick={this._removeName.bind(this)}>delete</button>}
             </div>
         );
     }

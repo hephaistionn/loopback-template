@@ -18,9 +18,19 @@ class Header extends Reflux.Component {
 
     render() {
         return (
-            <div className='header'> 
-               <h1>{this.props.title}</h1>
+          <header className="mdl-layout__header">
+            <div className="mdl-layout__header-row">
+            <div className="mdl-layout__drawer-button"><i className="material-icons"></i></div>
+                    <h1 className="mdl-layout-title">{this.props.title}</h1>
+                    <div className="mdl-layout-spacer"></div>
+                    <nav className="mdl-navigation">
+                      <a className="mdl-navigation__link" href="/">Home</a>
+                      <a className="mdl-navigation__link" href="/events">Event</a>
+                      <a className="mdl-navigation__link" href="/login">Login</a>
+                      <a className="mdl-navigation__link" href="/editor">Editor</a>
+                    </nav>
             </div>
+          </header>
         );
     }
 };
