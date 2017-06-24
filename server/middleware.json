@@ -47,6 +47,7 @@
         "/events/:id",
         "/events/",
         "/editor/",
+        "/signup/",
          "/"
        ], 
       "params": "$!../client/.dist"

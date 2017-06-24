@@ -1,10 +1,11 @@
 import Reflux from 'reflux'; 
+import {request} from './request'; 
 
 //Action
-export const actions = Reflux.createActions(['addName', 'removeName', 'changeName']);
+export const actionsList = Reflux.createActions(['addName', 'removeName', 'changeName']);
  
 //Store
-export class Store extends Reflux.Store {
+export class StoreList extends Reflux.Store {
 
 	constructor() {
         super();
@@ -12,7 +13,7 @@ export class Store extends Reflux.Store {
         	names: ['Thomas'],
             currentName: ''
         };
-        this.listenables = actions;
+        this.listenables = actionsList;
     }
 
     onAddName(name) {

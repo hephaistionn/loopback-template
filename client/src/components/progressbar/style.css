@@ -1,0 +1,7 @@
+.mdl-progress {
+	width: 100%;
+	opacity: 0;
+	&.is-active { 
+		opacity: 1; 
+	}
+}

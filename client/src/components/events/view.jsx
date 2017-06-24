@@ -1,18 +1,18 @@
 
 import Reflux from 'reflux';
 import React from 'react';
-import {Route,Link} from 'react-router-dom'
-import {Store, actions} from './model';
+import {Route, Link} from 'react-router-dom'
+import {StoreEvent, actionsEvent} from '../../stores/event';
 
 class Events extends Reflux.Component { 
     
     constructor(props){
         super(props);
-        this.store = Store; 
+        this.store = StoreEvent; 
     }
 
     componentDidMount() {
-		actions.refresh();
+		actionsEvent.refreshEvents();
     } 
 
     render() {

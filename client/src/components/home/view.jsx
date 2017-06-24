@@ -1,26 +1,26 @@
 
 import Reflux from 'reflux';
 import React from 'react';
-import {Store, actions} from './model';
+import {StoreList, actionsList} from '../../stores/list';
 
 class Home extends Reflux.Component { 
     
     constructor(props){
         super(props);
-        this.store = Store; 
+        this.store = StoreList; 
     }  
 
     _onChangeName(e) {
-        actions.changeName(e.target.value);
+        actionsList.changeName(e.target.value);
     }
 
     _addName(e) {
-        actions.addName(this.state.currentName);
+        actionsList.addName(this.state.currentName);
         e.preventDefault();  
     }
 
     _removeName(e) {
-        actions.removeName();
+        actionsList.removeName();
     }
 
     render() {
@@ -28,8 +28,8 @@ class Home extends Reflux.Component {
             <div className='home mdl-grid'>
                     <form className='mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col' onSubmit={this._addName.bind(this)}>
                         <label> {this.props.label}</label>
-                        <input className="mdl-textfield__input" type="text" placeholder="Nom" value={this.state.currentName} onChange={this._onChangeName.bind(this)}/>
-                        <input type="submit" value="Enregistrer" />
+                        <input className='mdl-textfield__input' type='text' placeholder='Nom' value={this.state.currentName} onChange={this._onChangeName.bind(this)}/>
+                        <input type='submit' value='Enregistrer' />
                     </form>
                     <ul className='mdl-cell mdl-cell--12-col'>
                     {this.state.names.map((name, index) =>

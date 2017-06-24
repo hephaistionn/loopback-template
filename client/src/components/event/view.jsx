@@ -1,17 +1,17 @@
 
 import Reflux from 'reflux';
 import React from 'react';
-import {Store, actions} from './model';
+import {StoreEvent, actionsEvent} from '../../stores/event';
 
 class Event extends Reflux.Component { 
     
     constructor(props){
         super(props);
-        this.store = Store; 
+        this.store = StoreEvent; 
     }  
 
     componentDidMount() {
-        actions.refresh(this.props.match.params.eventId);
+        actionsEvent.refreshEvent(this.props.match.params.eventId);
     }
 
     render() {
