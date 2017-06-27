@@ -2,6 +2,7 @@
 import Reflux from 'reflux';
 import React from 'react';
 import {StoreList, actionsList} from '../../stores/list';
+import {actionsAlert} from '../../stores/alert';
 
 class Home extends Reflux.Component { 
     
@@ -20,6 +21,7 @@ class Home extends Reflux.Component {
     }
 
     _removeName(e) {
+        actionsAlert.success('name removed');
         actionsList.removeName();
     }
 

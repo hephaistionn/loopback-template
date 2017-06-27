@@ -1,5 +1,6 @@
 import Reflux from 'reflux'; 
 import {request} from './request';  
+
 //Action
 export const actionsAuth = Reflux.createActions(['login', 'logout', 'changeEmail', 'changePassword', 'getProfile']);
  

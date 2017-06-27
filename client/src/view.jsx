@@ -13,6 +13,8 @@ import Event from './components/event/view';
 import EventEditor from './components/eventEditor/view';
 import Signup from './components/signup/view';
 import Progressbar from './components/progressbar/view';
+import Alert from './components/alert/view';
+
 
 //STORE
 import {StoreAuth, actionsAuth} from './stores/auth';
@@ -34,6 +36,7 @@ class App extends Reflux.Component {
                 <div className='mdl-layout'> 
                     <Header title='My template' profile={this.state.profile}/>
                     <Progressbar />
+                    <Alert />
                     <div className='mdl-layout__content'>
                         <div className='mdl-grid'>
                             <div className='mdl-layout-spacer'></div> 

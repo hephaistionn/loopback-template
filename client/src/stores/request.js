@@ -1,4 +1,5 @@
-import Reflux from 'reflux'; 
+import Reflux from 'reflux';
+import {actionsAlert} from './alert';
 
 //Action
 const actionsRequest = Reflux.createActions(['progress']);
@@ -41,5 +42,12 @@ axios.defaults.onDownloadProgress = function (progressEvent) {
     const percent = progressEvent.loaded/progressEvent.total*100;
     actionsRequest.progress(percent);
 }
+
+axios.interceptors.response.use(function (response) {
+    return response;
+  }, function (error) {
+    actionsAlert.error(error.message);
+    return Promise.reject(error);
+  });
 
 exports.request =  axios;
