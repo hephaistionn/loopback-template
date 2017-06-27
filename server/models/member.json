@@ -8,7 +8,8 @@
   "properties": {
     "username": {
       "type": "string",
-      "required": true
+      "required": true,
+      "index": {"unique": true} 
     },
     "picture": {
       "type": "string"

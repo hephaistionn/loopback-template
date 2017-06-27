@@ -11,7 +11,8 @@ export class StoreMember extends Reflux.Store {
         this.state = {
             currentUsername:'',
             currentPassword:'',
-            currentEmail: ''
+            currentEmail: '',
+            registered: false
         };
         this.listenables = actionsMember;
     }
@@ -23,7 +24,7 @@ export class StoreMember extends Reflux.Store {
             username:this.state.currentUsername
          })
         .then(response => {
-            this.setState(response.data);
+            this.setState({registered: true});
         })
         .catch(error => {
             console.log(error);

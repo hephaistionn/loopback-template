@@ -8,7 +8,7 @@ module.exports = function(Member) {
     /*
      * Actions (Remote Hooks)
      */
-
+     require('../hooks/member/emailVerification')(Member);
     /*
      * Actions (Listeners)
      */

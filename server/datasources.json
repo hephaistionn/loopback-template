@@ -1,8 +1,4 @@
 {
-  "db": {
-    "name": "db",
-    "connector": "memory"
-  },
   "mongo": {
     "url": "mongodb://localhost:27017/templateProject",
     "name": "mongo",

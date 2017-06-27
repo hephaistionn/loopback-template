@@ -16,7 +16,10 @@
     ]
   },
   "User": {
-    "dataSource": "mongo"
+    "dataSource": "mongo",
+    "options": {
+      "emailVerificationRequired": true
+    }
   },
   "AccessToken": {
     "dataSource": "mongo",
@@ -44,5 +47,9 @@
   "Event": {
     "dataSource": "mongo",
     "public": true
+  },
+  "Email": {
+    "dataSource": "mailgun",
+    "public": false
   }
 }

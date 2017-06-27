@@ -27,3 +27,5 @@ boot(app, __dirname, function(err) {
   if (require.main === module)
     app.start();
 });
+
+app.set('view engine', 'ejs');

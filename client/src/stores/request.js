@@ -9,17 +9,17 @@ export class RequestStore extends Reflux.Store {
 	constructor() {
         super();
         this.state = {
-        	progress: 100,
+        	progress: 100
         };
         this.listenables = actionsRequest;
     }
 
     onProgress(value) {
-    	this.setState({progress: value,});
+    	this.setState({progress: value});
     } 
 }
 
-//tools
+//tools 
 import axios from 'axios';
 
 const AUTH_TOKEN = localStorage.getItem('token');
@@ -29,7 +29,7 @@ if(AUTH_TOKEN){
 
 axios.storeToken = function storeToken(AUTH_TOKEN) {
 	axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
-	actionsRequest.setItem('token', AUTH_TOKEN);
+	localStorage.setItem('token', AUTH_TOKEN);
 }
 
 axios.defaults.onUploadProgress = function (progressEvent) {

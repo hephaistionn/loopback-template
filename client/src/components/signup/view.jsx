@@ -30,16 +30,24 @@ class Signup extends Reflux.Component {
     }
 
     render() {
-        return (
-            <div className='login mdl-grid'>  
-                <form  onSubmit={this._register.bind(this)}>
-                    <input type='text' placeholder='email' value={this.state.currentEmail} onChange={this._onChangeEmail.bind(this)}/>
-                    <input type='text' placeholder='username' value={this.state.currentUsername} onChange={this._onChangeUsername.bind(this)}/>
-                    <input type='password' placeholder='password' value={this.state.currentPassword} onChange={this._onChangePassword.bind(this)}/>
-                    <input type='submit' value='Register' />
-                </form>
-            </div>
-        );
+        if(!this.state.registered){
+            return (
+                <div className='login mdl-grid'>  
+                    <form  onSubmit={this._register.bind(this)}>
+                        <input type='text' placeholder='email' value={this.state.currentEmail} onChange={this._onChangeEmail.bind(this)}/>
+                        <input type='text' placeholder='username' value={this.state.currentUsername} onChange={this._onChangeUsername.bind(this)}/>
+                        <input type='password' placeholder='password' value={this.state.currentPassword} onChange={this._onChangePassword.bind(this)}/>
+                        <input type='submit' value='Register' />
+                    </form>
+                </div>
+            );
+        }else{
+            return (
+                <div className='login mdl-grid'>  
+                    <div> Check your email to confirm the registration </div>
+                </div>
+            );
+        }
     }
 };
 
