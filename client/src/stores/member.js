@@ -1,7 +1,7 @@
 import Reflux from 'reflux'; 
 import {request} from './request';   
 //Action
-export const actionsMember = Reflux.createActions(['register', 'changeUsername', 'changePassword', 'changeEmail']);
+export const actionsMember = Reflux.createActions(['register', 'changeUsername', 'changePassword1', 'changePassword2', 'changeEmail']);
  
 //Store
 export class StoreMember extends Reflux.Store {
@@ -10,7 +10,8 @@ export class StoreMember extends Reflux.Store {
         super();
         this.state = {
             currentUsername:'',
-            currentPassword:'',
+            currentPassword1:'',
+            currentPassword2:'',
             currentEmail: '',
             registered: false
         };
@@ -20,7 +21,7 @@ export class StoreMember extends Reflux.Store {
     onRegister() {
          request.post('/api/Members/',{
             email:this.state.currentEmail,
-            password:this.state.currentPassword,
+            password:this.state.currentPassword1,
             username:this.state.currentUsername
          })
         .then(response => {
@@ -35,9 +36,14 @@ export class StoreMember extends Reflux.Store {
     	this.setState({currentUsername: username});
     }
 
-    onChangePassword(password) {
-		this.setState({currentPassword: password});
+    onChangePassword1(password) {
+		this.setState({currentPassword1: password});
     }
+
+    onChangePassword2(password) {
+        this.setState({currentPassword2: password});
+    }
+
 
     onChangeEmail(email) {
         this.setState({currentEmail: email});

@@ -1,5 +1,6 @@
 'use strict';
 var path = require('path');
+var sendmail = require('sendmail')();
 
 module.exports = function(server) {
   // Install a `/` route that returns server status
@@ -23,24 +24,26 @@ module.exports = function(server) {
     var options = {
       type: 'email',
       to: 'alexandre.monge.mail@gmail.com',
-      from: 'noreply@'+host,
+      from: 'noreply@'+host.replace('localhost', 'stenchon.fr'),
       subject: 'test',
       verifyHref:  'http://localhost:3000/status',
       text:'email test'
     };
 
+    console.log(options);
+
   	return server.loopback.Email.send(
   		options
-	).then(function(response){
-        console.log(response);
-    	res.send('sended');
-	}).catch(function(err){});
-        console.log('Upppss something crash', err.response.body.errors[0]);
-        res.send('sended fail');
-	});
+  	).then(function(response){
+          console.log(response);
+      	res.send('sended');
+  	}).catch(function(err){
+        console.log(err)
+         res.send('sended fail');
+    });
+
+  });
 
   server.use(router);
+
 };
-
-
-

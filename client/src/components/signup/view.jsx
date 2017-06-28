@@ -14,8 +14,13 @@ class Signup extends Reflux.Component {
         e.preventDefault(); 
     }
 
-    _onChangePassword(e) {  
-        actionsMember.changePassword(e.target.value);
+    _onChangePassword1(e) {  
+        actionsMember.changePassword1(e.target.value);
+        e.preventDefault(); 
+    }
+
+    _onChangePassword2(e) {  
+        actionsMember.changePassword2(e.target.value);
         e.preventDefault(); 
     }
 
@@ -36,7 +41,8 @@ class Signup extends Reflux.Component {
                     <form  onSubmit={this._register.bind(this)}>
                         <input type='text' placeholder='email' value={this.state.currentEmail} onChange={this._onChangeEmail.bind(this)}/>
                         <input type='text' placeholder='username' value={this.state.currentUsername} onChange={this._onChangeUsername.bind(this)}/>
-                        <input type='password' placeholder='password' value={this.state.currentPassword} onChange={this._onChangePassword.bind(this)}/>
+                        <input type='password' placeholder='password' value={this.state.currentPassword1} onChange={this._onChangePassword1.bind(this)}/>
+                        <input type='password' placeholder='password' value={this.state.currentPassword2} onChange={this._onChangePassword2.bind(this)}/>
                         <input type='submit' value='Register' />
                     </form>
                 </div>

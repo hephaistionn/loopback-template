@@ -14,6 +14,7 @@ import EventEditor from './components/eventEditor/view';
 import Signup from './components/signup/view';
 import Progressbar from './components/progressbar/view';
 import Alert from './components/alert/view';
+import Reset from './components/reset/view';
 
 
 //STORE
@@ -47,6 +48,7 @@ class App extends Reflux.Component {
                                 <Route exact path='/login' component={Login}/>
                                 <Route path='/editor' component={EventEditor}/>
                                 <Route path='/signup' component={Signup}/>
+                                <Route path='/reset' component={Reset}/>
                             </div>  
                             <div className='mdl-layout-spacer'></div>
                         </div>         

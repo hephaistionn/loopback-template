@@ -46,7 +46,7 @@ axios.defaults.onDownloadProgress = function (progressEvent) {
 axios.interceptors.response.use(function (response) {
     return response;
   }, function (error) {
-    actionsAlert.error(error.message);
+    actionsAlert.error(error.response.data.error.message);
     return Promise.reject(error);
   });
 

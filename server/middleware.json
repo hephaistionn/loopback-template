@@ -48,6 +48,7 @@
         "/events/",
         "/editor/",
         "/signup/",
+        "/reset/",
          "/"
        ], 
       "params": "$!../client/.dist"

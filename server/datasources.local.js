@@ -4,10 +4,7 @@ module.exports = {
     connector: 'loopback-connector-sendgrid',
     api_key: process.env.EMAIL_API_KEY
   },
-  mailgun: {
-    connector: 'loopback-connector-mailgun',
-    apikey: '',
-    domain: ''
-  }
+  sendmail: {
+        "connector": "loopback-connector-sendmail"
+  },
 }
-

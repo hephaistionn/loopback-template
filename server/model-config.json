@@ -49,7 +49,7 @@
     "public": true
   },
   "Email": {
-    "dataSource": "mailgun",
+    "dataSource": "sendmail",
     "public": false
   }
 }
