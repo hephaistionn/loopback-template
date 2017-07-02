@@ -2,7 +2,7 @@ import Reflux from 'reflux';
 import {request} from './request'; 
 
 //Action
-export const actionsEvent = Reflux.createActions(['refreshEvent', 'refreshEvents', 'changeForm', 'saveForm']);
+export const actionsEvent = Reflux.createActions(['refreshEvent', 'refreshEvents', 'changeForm', 'saveForm',  'setPicture']);
  
 //Store
 export class StoreEvent extends Reflux.Store {
@@ -14,7 +14,8 @@ export class StoreEvent extends Reflux.Store {
         	events:[],
             event: {
                 title: '',
-                description: ''
+                description: '',
+                picture: {}
             }
         };
     }
@@ -46,6 +47,28 @@ export class StoreEvent extends Reflux.Store {
         const state = {};
         state[id] = value;
         this.setState(state);
+    }
+
+    onSetPicture(files) {
+        const picture = files[0];
+        const event = this.state.event;
+        event.picture = picture;  
+        this.setState({'event': event});
+        //let data = new FormData();
+        ///data.append('images', file, file.name);
+        //const config = {
+        //    headers: { 'content-type': 'multipart/form-data' }
+        //}
+        //return axios.post('/api/images', data, config)   
+
+        request.post('/api/Containers')
+        .then(response=> { 
+            console.log('container created');
+            console.log(response)
+        })
+        .catch(error => {
+            console.log(error);
+        })
     }
 
     onSaveForm() {

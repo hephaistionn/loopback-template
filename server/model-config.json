@@ -51,5 +51,9 @@
   "Email": {
     "dataSource": "sendmail",
     "public": false
+  },
+  "Container": {
+    "dataSource": "filesystem",
+    "public": true
   }
 }
