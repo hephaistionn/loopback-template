@@ -32,7 +32,7 @@ module.exports = function(server) {
 
     console.log(options);
 
-  	return server.loopback.Email.send(
+  	return app.models.Email.send(
   		options
   	).then(function(response){
           console.log(response);

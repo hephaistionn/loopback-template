@@ -53,17 +53,15 @@ export class StoreEvent extends Reflux.Store {
         const picture = files[0];
         const event = this.state.event;
         event.picture = picture;  
-        this.setState({'event': event});
-        //let data = new FormData();
-        ///data.append('images', file, file.name);
-        //const config = {
-        //    headers: { 'content-type': 'multipart/form-data' }
-        //}
-        //return axios.post('/api/images', data, config)   
-
-        request.post('/api/Containers')
+        this.setState({'event': event}); 
+        let form = new FormData();
+        form.append('images', picture, picture.name);
+        const config = {
+            headers: { 'content-type': 'multipart/form-data' }
+        }
+        request.post('/api/Containers/pictures/upload', form, config)
         .then(response=> { 
-            console.log('container created');
+            console.log('picture uploaded');
             console.log(response)
         })
         .catch(error => {
