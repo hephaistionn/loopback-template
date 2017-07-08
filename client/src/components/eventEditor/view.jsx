@@ -29,13 +29,13 @@ class EventEditor extends Reflux.Component {
             <div className='eventEditor mdl-grid'> 
                 <form  onSubmit={this._saveForm.bind(this)}>
                     <p>id:{this.state.id }</p>
-                    <input type='text' placeholder='title' value={this.state.title} onChange={this._onChangeForm.bind(this)}/>
-                    <input type='text' placeholder='description' value={this.state.description} onChange={this._onChangeForm.bind(this)}/>
+                    <input type='text' placeholder='title' value={this.state.event.title} onChange={this._onChangeForm.bind(this)}/>
+                    <input type='text' placeholder='description' value={this.state.event.description} onChange={this._onChangeForm.bind(this)}/>
+                    <img src={this.state.event.banner}/>
                     <Dropzone onDrop={this._onDrop.bind(this)}>
                         <p>Try dropping some files here, or click to select files to upload.</p>
+                        <img src={this.state.picture.preview} />
                     </Dropzone>
-                     <h2>Dropped files</h2>
-                     {this.state.event.picture.name} - {this.state.event.picture.size} bytes <img src={this.state.event.picture.preview} />
                     <input type='submit' value='save' />
                 </form>
             </div>

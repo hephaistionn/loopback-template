@@ -7,9 +7,14 @@
     "validateUpsert": true
   },
   "mixins": {},
-  "properties": {},
+  "properties": {
+    "ownerId": {
+        "type": "string"
+    }
+  },
   "validations": [],
-  "relations": {},
+  "relations": {
+  },
   "acls": [],
   "methods": {}
 }

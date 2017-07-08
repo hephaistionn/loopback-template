@@ -8,12 +8,12 @@ module.exports = function(server) {
   router.get('/status', server.loopback.status());
 
   router.get('/hostname',  function(req, res) {
-  	res.send(  	process.env.HOST_NAME);
+    res.send(   process.env.HOST_NAME);
   }); 
 
   router.get('/mailer', function(req, res) {
 
-  	var host = process.env.HOST_NAME;
+    var host = process.env.HOST_NAME;
     var port = process.env.PORT;
     var protocol = process.env.PROTOCOL;
 
@@ -32,13 +32,13 @@ module.exports = function(server) {
 
     console.log(options);
 
-  	return app.models.Email.send(
-  		options
-  	).then(function(response){
+    return server.loopback.Email.send(
+      options
+    ).then(function(response){
           console.log(response);
-      	res.send('sended');
-  	}).catch(function(err){
-        console.log(err)
+        res.send('sended');
+    }).catch(function(err){
+        console.log(err);
          res.send('sended fail');
     });
 

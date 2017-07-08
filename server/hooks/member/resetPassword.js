@@ -40,6 +40,5 @@ module.exports = function(Member) {
           console.log(err.response.body.errors[0])
         } 
       });
-
   });
 }

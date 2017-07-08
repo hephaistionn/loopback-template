@@ -4,10 +4,10 @@ import React from 'react';
 import {Link} from 'react-router-dom'
 import {actionsAuth} from '../../stores/auth';
 
-class Header extends Reflux.Component { 
-    
+class Header extends Reflux.Component {
+
     constructor(props){
-        super(props);   
+        super(props);
     }
 
     static get defaultProps() {
@@ -15,7 +15,7 @@ class Header extends Reflux.Component {
           tilte: 'title',
           profile: null
         }
-    } 
+    }
 
     render() {
 
@@ -24,7 +24,7 @@ class Header extends Reflux.Component {
           nav.push(<Link className='mdl-navigation__link' key={0} to={'/'}>Home</Link>);
           nav.push(<Link className='mdl-navigation__link' key={1} to={'/events'}>Event</Link>);
           nav.push(<Link className='mdl-navigation__link' key={2} to={'/editor'}>Editor</Link>);
-          nav.push(<a className='mdl-navigation__link' onClick={actionsAuth.logout} key={3}>Logout</a>); 
+          nav.push(<a className='mdl-navigation__link' onClick={actionsAuth.logout} key={3}>Logout</a>);
         }else{
           nav.push(<Link className='mdl-navigation__link' key={0} to={'/'}>Home</Link>);
           nav.push(<Link className='mdl-navigation__link' key={1} to={'/events'}>Event</Link>);
@@ -48,4 +48,4 @@ class Header extends Reflux.Component {
     }
 };
 
-export default Header;  
+export default Header;

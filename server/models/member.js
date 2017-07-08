@@ -10,6 +10,7 @@ module.exports = function(Member) {
      */
      require('../hooks/member/emailVerification')(Member);
      require('../hooks/member/resetPassword')(Member);
+     require('../hooks/member/prepareContainer')(Member);
     /*
      * Actions (Listeners)
      */

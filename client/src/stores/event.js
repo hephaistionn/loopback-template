@@ -1,5 +1,6 @@
 import Reflux from 'reflux';
-import {request} from './request'; 
+import {request} from './request';
+import lodash from 'lodash';
 
 //Action
 export const actionsEvent = Reflux.createActions(['refreshEvent', 'refreshEvents', 'changeForm', 'saveForm',  'setPicture']);
@@ -15,8 +16,10 @@ export class StoreEvent extends Reflux.Store {
             event: {
                 title: '',
                 description: '',
-                picture: {}
-            }
+                banner: '',
+                id: ''
+            },
+            picture: {}
         };
     }
 
@@ -36,46 +39,57 @@ export class StoreEvent extends Reflux.Store {
     onRefreshEvent(eventId) {
         request.get('/api/Events/'+eventId)
         .then(response => {
-            this.setState(response.data);
-        })
-        .catch(error => {
-            console.log(error);
+            this.setState({event: response.data});
         });
     }
 
     onChangeForm(value, id) {
-        const state = {};
-        state[id] = value;
-        this.setState(state);
+        const event = this.state.event;
+        event[id] = value;
+        this.setState({'event': event});
     }
 
     onSetPicture(files) {
-        const picture = files[0];
-        const event = this.state.event;
-        event.picture = picture;  
-        this.setState({'event': event}); 
-        let form = new FormData();
-        form.append('images', picture, picture.name);
-        const config = {
-            headers: { 'content-type': 'multipart/form-data' }
-        }
-        request.post('/api/Containers/pictures/upload', form, config)
-        .then(response=> { 
-            console.log('picture uploaded');
-            console.log(response)
-        })
-        .catch(error => {
-            console.log(error);
-        })
+        const picture = files[0]; 
+        this.setState({'picture': picture});  
     }
 
     onSaveForm() {
-        request.post('/api/Events/replaceOrCreate', this.state)
-        .then(response=> { 
-            this.setState(response.data);
-        })
-        .catch(error => {
-            console.log(error);
-        });
+        const that  = this;
+        function createOfReplaceEvent(){
+                const event = lodash.cloneDeep(that.state.event);
+                const id = event.id;
+                delete event.id;
+                if(id) {
+                    return request.put('/api/Events/'+id, event);
+                } else {
+                    return request.post('/api/Events', event)
+                }
+        }
+
+        function refreshEvent(response) {
+            that.setState({event: response.data});
+            return response;
+        }
+
+        function uploadPictureEvent(reponse){
+            if(that.state.picture.name) {
+                const form = new FormData();
+                form.append('banner', that.state.picture, that.state.picture.name);
+                const config = {
+                    headers: { 'content-type': 'multipart/form-data' }
+                };
+                return request.post('/api/Events/'+reponse.data.id+'/uploadBanner', form, config) 
+                .then(()=>{return reponse.data.id});
+            }
+        }
+
+        function reload(){
+            that.onRefreshEvent( that.state.event.id);
+        }
+        createOfReplaceEvent()
+        .then(refreshEvent)
+        .then(uploadPictureEvent)
+        .then(reload);
     }
 }

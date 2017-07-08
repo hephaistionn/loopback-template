@@ -14,10 +14,14 @@
     },
     "picture": {
       "type": "string"
+    },
+    "containerId": {
+        "type": "string"
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+  },
   "acls": [],
   "methods": {}
 }
