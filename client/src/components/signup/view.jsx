@@ -9,27 +9,27 @@ class Signup extends Reflux.Component {
         this.store = StoreMember; 
     }  
 
-    _onChangeUsername(e) { 
+    changeUsername(e) {
         actionsMember.changeUsername(e.target.value);
         e.preventDefault(); 
     }
 
-    _onChangePassword1(e) {  
+    changePassword1(e) {
         actionsMember.changePassword1(e.target.value);
         e.preventDefault(); 
     }
 
-    _onChangePassword2(e) {  
+    changePassword2(e) {
         actionsMember.changePassword2(e.target.value);
         e.preventDefault(); 
     }
 
-    _onChangeEmail(e) {  
+    changeEmail(e) {
         actionsMember.changeEmail(e.target.value); 
         e.preventDefault(); 
     }
 
-    _register(e) {
+    register(e) {
         actionsMember.register();
         e.preventDefault(); 
     }
@@ -38,11 +38,11 @@ class Signup extends Reflux.Component {
         if(!this.state.registered){
             return (
                 <div className='login mdl-grid'>  
-                    <form  onSubmit={this._register.bind(this)}>
-                        <input type='text' placeholder='email' value={this.state.currentEmail} onChange={this._onChangeEmail.bind(this)}/>
-                        <input type='text' placeholder='username' value={this.state.currentUsername} onChange={this._onChangeUsername.bind(this)}/>
-                        <input type='password' placeholder='password' value={this.state.currentPassword1} onChange={this._onChangePassword1.bind(this)}/>
-                        <input type='password' placeholder='password' value={this.state.currentPassword2} onChange={this._onChangePassword2.bind(this)}/>
+                    <form  onSubmit={this.register}>
+                        <input type='text' placeholder='email' value={this.state.currentEmail} onChange={this.changeEmail}/>
+                        <input type='text' placeholder='username' value={this.state.currentUsername} onChange={this.changeUsername}/>
+                        <input type='password' placeholder='password' value={this.state.currentPassword1} onChange={this.changePassword1}/>
+                        <input type='password' placeholder='password' value={this.state.currentPassword2} onChange={this.changePassword2}/>
                         <input type='submit' value='Register' />
                     </form>
                 </div>

@@ -68,12 +68,7 @@ export class StoreEvent extends Reflux.Store {
 
         function uploadPictureEvent(reponse){
             if(that.state.picture.name) {
-                const form = new FormData();
-                form.append('banner', that.state.picture, that.state.picture.name);
-                const config = {
-                    headers: { 'content-type': 'multipart/form-data' }
-                };
-                return request.post('/api/Events/'+reponse.data.id+'/uploadBanner', form, config) 
+                return request.post('/api/Events/'+reponse.data.id+'/uploadBanner', that.state.picture)
                 .then(()=>{return reponse.data.id});
             }
         }

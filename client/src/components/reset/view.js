@@ -9,14 +9,14 @@ class Reset extends Reflux.Component {
         this.store = StoreMember;
     }  
 
-    _onChangePassword1(e) {
+    changePassword1(e) {
         actionsMember.changePassword1(e.target.value);
     }
-    _onChangePassword2(e) {
+    changePassword2(e) {
         actionsMember.changePassword2(e.target.value);
     }
 
-    _onResetPasswordConfirm(e) {
+    resetPasswordConfirm(e) {
         actionsMember.resetConfirm();
         e.preventDefault();  
     }
@@ -24,9 +24,9 @@ class Reset extends Reflux.Component {
     render() {
         return (
             <div className='reset mdl-grid'>  
-                <form  onSubmit={this._onResetPasswordConfirm.bind(this)}>
-                    <input type='password' placeholder='password' value={this.state.currentPassword1} onChange={this._onChangePassword1.bind(this)}/>
-                    <input type='password' placeholder='password' value={this.state.currentPassword2} onChange={this._onChangePassword2.bind(this)}/>
+                <form  onSubmit={this.resetPasswordConfirm}>
+                    <input type='password' placeholder='password' value={this.state.currentPassword1} onChange={this.changePassword1}/>
+                    <input type='password' placeholder='password' value={this.state.currentPassword2} onChange={this.changePassword2}/>
                     <input type='submit' value='Confim' />
                 </form>
             </div>

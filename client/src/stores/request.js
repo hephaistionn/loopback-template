@@ -28,11 +28,6 @@ if(AUTH_TOKEN) {
     axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
 }
 
-axios.storeToken = function storeToken(AUTH_TOKEN) {
-    axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
-    localStorage.setItem('token', AUTH_TOKEN);
-};
-
 axios.defaults.onUploadProgress = function(progressEvent) {
     const percent = progressEvent.loaded / progressEvent.total * 100;
     actionsRequest.progress(percent);
@@ -43,11 +38,28 @@ axios.defaults.onDownloadProgress = function(progressEvent) {
     actionsRequest.progress(percent);
 };
 
-axios.interceptors.response.use(function(response) {
-    return response;
-}, function(error) {
-    actionsAlert.error(error.response.data.error.message);
-    return Promise.reject(error);
-});
 
-export const request = axios;
+export const request = {
+    get: function get(url) {
+        return axios.get(url);
+    },
+    put: function put(url, form, config) {
+        return axios.put(url, form, config);
+    },
+    post: function post(url, formData, configData) {
+        let form = formData;
+        let config  = configData;
+        if(formData && formData.constructor.name === 'File') {
+            form = new FormData();
+            form.append('banner', formData, formData.name);
+            config = {
+                headers: { 'content-type': 'multipart/form-data' }
+            };
+        }
+        return axios.post(url, form, config);
+    },
+    storeToken: function storeToken(AUTH_TOKEN) {
+        axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
+        localStorage.setItem('token', AUTH_TOKEN);
+    }
+};

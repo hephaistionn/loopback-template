@@ -17,26 +17,26 @@ class EventEditor extends Reflux.Component {
         }
     }
 
-    _updateEvent(e) {
+    updateEvent(e) {
         actionsEvent.updateEvent(e.target.value, e.target.placeholder);
     }
 
-    _saveEvent(e) {
+    saveEvent(e) {
         actionsEvent.saveEvent();
-        e.preventDefault();    
+        e.preventDefault();
     }
 
-    _onDrop(files) {
+    onDrop(files) {
         actionsEvent.setPicture(files);
     }
 
     render() {
         return (
-            <div className='eventEditor mdl-grid'> 
-                <form  onSubmit={this._saveEvent.bind(this)}>
-                    <input type='text' placeholder='title' value={this.state.event.title} onChange={this._updateEvent.bind(this)}/>
-                    <input type='text' placeholder='description' value={this.state.event.description} onChange={this._updateEvent.bind(this)}/>
-                    <Dropzone onDrop={this._onDrop.bind(this)}>
+            <div className='eventEditor mdl-grid'>
+                <form  onSubmit={this.saveEvent}>
+                    <input type='text' placeholder='title' value={this.state.event.title} onChange={this.updateEvent}/>
+                    <input type='text' placeholder='description' value={this.state.event.description} onChange={this.updateEvent}/>
+                    <Dropzone onDrop={this.onDrop}>
                         <p>Try dropping some files here, or click to select files to upload.</p>
                         <img src={this.state.picture.preview ? this.state.picture.preview : this.state.event.banner} />
                     </Dropzone>

@@ -11,20 +11,20 @@ class Login extends Reflux.Component {
         this.store = StoreMember;
     }  
 
-    _onChangeEmail(e) {
+    changeEmail(e) {
         actionsMember.changeEmail(e.target.value);
     }
 
-    _onChangePassword(e) {
+    changePassword(e) {
         actionsMember.changePassword1(e.target.value);
     }
 
-    _login(e) {
+    login(e) {
         actionsMember.login();
         e.preventDefault();  
     }
 
-    _onResetPassword(e) {
+    resetPassword(e) {
         actionsMember.resetPassword();
         e.preventDefault(); 
     }
@@ -32,11 +32,11 @@ class Login extends Reflux.Component {
     render() {
         return (
             <div className='login mdl-grid'>  
-                <form  onSubmit={this._login.bind(this)}>
-                    <input type='text' placeholder='email' value={this.state.currentEmail} onChange={this._onChangeEmail.bind(this)}/>
-                    <input type='password' placeholder='password' value={this.state.currentPassword1} onChange={this._onChangePassword.bind(this)}/>
+                <form  onSubmit={this.login}>
+                    <input type='text' placeholder='email' value={this.state.currentEmail} onChange={this.changeEmail}/>
+                    <input type='password' placeholder='password' value={this.state.currentPassword1} onChange={this.changePassword}/>
                     <input type='submit' value='Login' />
-                    <a className='mdl-navigation__link'  onClick={this._onResetPassword.bind(this)}>Reset Password</a>
+                    <a className='mdl-navigation__link'  onClick={this.resetPassword}>Reset Password</a>
                 </form>
             </div>
         );
