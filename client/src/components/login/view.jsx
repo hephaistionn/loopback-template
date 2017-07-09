@@ -2,30 +2,30 @@
 import Reflux from 'reflux';
 import React from 'react';
 import {Link} from 'react-router-dom'
-import {StoreAuth, actionsAuth} from '../../stores/auth';
+import {StoreMember, actionsMember} from '../../stores/member';
 
 class Login extends Reflux.Component { 
     
     constructor(props){
         super(props);   
-        this.store = StoreAuth; 
+        this.store = StoreMember;
     }  
 
-    _onChangeEmail(e) { 
-        actionsAuth.changeEmail(e.target.value);
+    _onChangeEmail(e) {
+        actionsMember.changeEmail(e.target.value);
     }
 
-    _onChangePassword(e) {  
-        actionsAuth.changePassword1(e.target.value); 
+    _onChangePassword(e) {
+        actionsMember.changePassword1(e.target.value);
     }
 
     _login(e) {
-        actionsAuth.login();
+        actionsMember.login();
         e.preventDefault();  
     }
 
-    _onResetPassword(e) {  
-        actionsAuth.resetPassword(); 
+    _onResetPassword(e) {
+        actionsMember.resetPassword();
         e.preventDefault(); 
     }
 

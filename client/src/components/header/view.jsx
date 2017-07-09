@@ -2,7 +2,7 @@
 import Reflux from 'reflux';
 import React from 'react';
 import {Link} from 'react-router-dom'
-import {actionsAuth} from '../../stores/auth';
+import {actionsMember} from '../../stores/member';
 
 class Header extends Reflux.Component {
 
@@ -23,7 +23,7 @@ class Header extends Reflux.Component {
         if(this.props.profile){
           nav.push(<Link className='mdl-navigation__link' key={0} to={'/'}>Home</Link>);
           nav.push(<Link className='mdl-navigation__link' key={1} to={'/events'}>Event</Link>);
-          nav.push(<a className='mdl-navigation__link' onClick={actionsAuth.logout} key={3}>Logout</a>);
+          nav.push(<a className='mdl-navigation__link' onClick={actionsMember.logout} key={3}>Logout</a>);
         }else{
           nav.push(<Link className='mdl-navigation__link' key={0} to={'/'}>Home</Link>);
           nav.push(<Link className='mdl-navigation__link' key={1} to={'/events'}>Event</Link>);

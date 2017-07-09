@@ -33,9 +33,9 @@ module.exports = function(Member) {
 
       userInstance.verify(options, function(err, response, next) {
         if (err) {
-          console.log(err.response.body.errors[0])
+          console.log(err.response.body.errors[0]);
           return next(err);
-        } 
+        }
         context.res.send(response.email);
       });
 

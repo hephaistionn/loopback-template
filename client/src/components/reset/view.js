@@ -1,23 +1,23 @@
 import Reflux from 'reflux';
 import React from 'react';
-import {StoreAuth, actionsAuth} from '../../stores/auth';
+import {StoreMember, actionsMember} from '../../stores/member';
 
 class Reset extends Reflux.Component { 
     
     constructor(props){
         super(props);   
-        this.store = StoreAuth; 
+        this.store = StoreMember;
     }  
 
-    _onChangePassword1(e) {  
-        actionsAuth.changePassword1(e.target.value); 
+    _onChangePassword1(e) {
+        actionsMember.changePassword1(e.target.value);
     }
-    _onChangePassword2(e) {  
-        actionsAuth.changePassword2(e.target.value); 
+    _onChangePassword2(e) {
+        actionsMember.changePassword2(e.target.value);
     }
 
     _onResetPasswordConfirm(e) {
-        actionsAuth.resetConfirm();
+        actionsMember.resetConfirm();
         e.preventDefault();  
     }
 

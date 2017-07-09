@@ -3,7 +3,7 @@ import {request} from './request';
 import lodash from 'lodash';
 
 //Action
-export const actionsEvent = Reflux.createActions(['refreshEvent', 'refreshEvents', 'changeForm', 'saveForm',  'setPicture']);
+export const actionsEvent = Reflux.createActions(['refreshEvent', 'refreshEvents', 'updateEvent', 'saveEvent',  'setPicture']);
  
 //Store
 export class StoreEvent extends Reflux.Store {
@@ -37,7 +37,7 @@ export class StoreEvent extends Reflux.Store {
         });
     }
 
-    onChangeForm(value, id) {
+    onUpdateEvent(value, id) {
         const event = this.state.event;
         event[id] = value;
         this.setState({'event': event});
@@ -48,7 +48,7 @@ export class StoreEvent extends Reflux.Store {
         this.setState({'picture': picture});  
     }
 
-    onSaveForm() {
+    onSaveEvent() {
         const that  = this;
         function createOfReplaceEvent(){
                 const event = lodash.cloneDeep(that.state.event);

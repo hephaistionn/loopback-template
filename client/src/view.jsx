@@ -18,24 +18,24 @@ import Reset from './components/reset/view';
 
 
 //STORE
-import {StoreAuth, actionsAuth} from './stores/auth';
+import {StoreMember, actionsMember} from './stores/member';
 
 class App extends Reflux.Component { 
     
     constructor(props){
         super(props);
-        this.store = StoreAuth;
+        this.store = StoreMember;
     }
 
     componentDidMount() {
-        actionsAuth.getProfile();
+        actionsMember.getProfile();
     } 
 
     render() {
         return (
             <BrowserRouter>
                 <div className='mdl-layout'> 
-                    <Header title='My template' profile={this.state.profile}/>
+                    <Header title='My template' profile={this.state.currentProfile}/>
                     <Progressbar />
                     <Alert />
                     <div className='mdl-layout__content'>

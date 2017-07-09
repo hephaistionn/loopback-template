@@ -1,8 +1,20 @@
 import Reflux from 'reflux';
 import {request} from './request';
-//Action
-export const actionsMember = Reflux.createActions(['register', 'changeUsername', 'changePassword1', 'changePassword2', 'changeEmail']);
+import tools from './tools';
+import {actionsAlert} from './alert';
 
+//Action
+export const actionsMember = Reflux.createActions([
+    'register',
+    'login',
+    'logout',
+    'getProfile',
+    'changeUsername',
+    'changePassword1',
+    'changePassword2',
+    'changeEmail',
+    'resetPassword',
+    'resetConfirm']);
 //Store
 export class StoreMember extends Reflux.Store {
 
@@ -10,11 +22,13 @@ export class StoreMember extends Reflux.Store {
         super();
         this.state = {
             currentUsername:'',
+            currentEmail: '',
             currentPassword1:'',
             currentPassword2:'',
-            currentEmail: '',
-            registered: false
+            registered: false,
+            currentProfile: null
         };
+        this.checkQueryAuth();
         this.listenables = actionsMember;
     }
 
@@ -30,6 +44,34 @@ export class StoreMember extends Reflux.Store {
             .catch(error => {
                 console.log(error);
             });
+    }
+
+    onLogin() {
+        request.post('/api/Members/login', {
+            email: this.state.currentEmail,
+            password: this.state.currentPassword1
+        })
+            .then(response => {
+                request.storeToken(response.data.id);
+                localStorage.setItem('member', response.data.userId);
+                return this.onGetProfile();
+            })
+            .then(() => {
+                location.pathname = '/';
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }
+
+    onLogout() {
+        request.post('/api/Members/logout')
+            .then(response => {
+                request.storeToken('');
+                localStorage.setItem('member', '');
+            }).then(() => {
+                location.pathname = '/login/';
+            })
     }
 
     onChangeUsername(username) {
@@ -48,8 +90,51 @@ export class StoreMember extends Reflux.Store {
         this.setState({currentEmail: email});
     }
 
-    onRefreshMember() {
+    onGetProfile() {
+        const userId = localStorage.getItem('member');
+        if(userId) {
+            return request.get('/api/Members/' + userId)
+                .then(response => {
+                    this.setState({currentProfile: response.data});
+                })
+                .catch(error => {
+                    this.setState({currentProfile: null});
+                });
+        }
+    }
 
+    onResetPassword() {
+        const form = {
+            email: this.state.currentEmail
+        };
+        request.post('/api/Members/reset', form)
+            .then(response => {
+                actionsAlert.success('Check your email for further instructions');
+            })
+    }
+
+    onResetConfirm() {
+        if(this.state.currentPassword1 !== this.state.currentPassword2) {
+            actionsAlert.success('Password not identical');
+            return;
+        }
+
+        const form = {
+            newPassword: this.state.currentPassword1
+        };
+        request.post('/api/Members/reset-password', form)
+            .then(response => {
+                actionsAlert.success('Password updated');
+                location.pathname = '/';
+            });
+    }
+
+    checkQueryAuth() {
+        const query = tools.getQuery();
+        if(query.token && query.id) {
+            request.storeToken(query.token);
+            localStorage.setItem('member', query.id);
+        }
     }
 
 }
