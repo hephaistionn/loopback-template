@@ -4,7 +4,7 @@ export default {
 		const search = location.search.split('?')[1];
 		if(!search) return {};
  		let list = search.split('&');
-        let formated = {}
+        let formated = {};
         while(list.length){
             const param = list.shift().split('=');
             formated[param[0]]  = param[1];

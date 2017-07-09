@@ -44,6 +44,7 @@
     "loopback#static": { 
       "paths": [
         "/login/",
+        "/events/:id/editor/",
         "/events/:id",
         "/events/",
         "/editor/",

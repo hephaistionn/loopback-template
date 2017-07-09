@@ -26,14 +26,8 @@ export class StoreEvent extends Reflux.Store {
     onRefreshEvents() {
         request.get('/api/Events')
         .then(response => {
-            this.setState({
-                events: response.data
-            });
-        })
-        .catch(error => {
-            console.log(error);
+            this.setState({events: response.data});
         });
- 
     }
 
     onRefreshEvent(eventId) {
@@ -85,7 +79,7 @@ export class StoreEvent extends Reflux.Store {
         }
 
         function reload(){
-            that.onRefreshEvent( that.state.event.id);
+            location.pathname = '/events/'+that.state.event.id+'/editor/';
         }
         createOfReplaceEvent()
         .then(refreshEvent)

@@ -27,8 +27,9 @@ class Events extends Reflux.Component {
                         </Link>
                         </li>
                 )} 
-                </ul> 
-            </div>
+                </ul>
+                <Link to={'/editor/'}>Create an Event</Link>
+                </div>
         );
     }
 };

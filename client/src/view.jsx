@@ -24,7 +24,7 @@ class App extends Reflux.Component {
     
     constructor(props){
         super(props);
-        this.store = StoreAuth; 
+        this.store = StoreAuth;
     }
 
     componentDidMount() {
@@ -44,9 +44,10 @@ class App extends Reflux.Component {
                             <div className='mdl-cell mdl-cell--6-col box-shadow'>  
                                 <Route exact path='/' component={Home}/>
                                 <Route exact path='/events' component={Events}/>
-                                <Route path={'/events/:eventId'} component={Event}/>
+                                <Route exact path={'/events/:eventId'} component={Event}/>
+                                <Route exact path={'/events/:eventId/editor/'} component={EventEditor}/>
+                                <Route exact path={'/editor/'} component={EventEditor}/>
                                 <Route exact path='/login' component={Login}/>
-                                <Route path='/editor' component={EventEditor}/>
                                 <Route path='/signup' component={Signup}/>
                                 <Route path='/reset' component={Reset}/>
                             </div>  
