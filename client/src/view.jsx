@@ -2,10 +2,10 @@
 import {render} from 'react-dom';
 import Reflux from 'reflux';
 import React from 'react';
-import {BrowserRouter, Route, Link} from 'react-router-dom'
+import {BrowserRouter, Route, Link, Redirect} from 'react-router-dom'
 
 //PAGES
-import Home from './components/home/view'; 
+import Home from './components/home/view';
 import Header from './components/header/view';
 import Login from './components/login/view';
 import Events from './components/events/view';
@@ -19,29 +19,36 @@ import Reset from './components/reset/view';
 
 //STORE
 import {StoreMember, actionsMember} from './stores/member';
+import {StoreRequest} from './stores/request';
+import {StoreAlert} from './stores/alert';
 
-class App extends Reflux.Component { 
-    
+class App extends Reflux.Component {
+
     constructor(props){
         super(props);
-        this.store = StoreMember;
+        this.stores = [StoreMember, StoreRequest];
     }
 
     componentDidMount() {
         actionsMember.getProfile();
-    } 
+    }
 
     render() {
+        let redirect = null;
+        if(this.state.redirect) {
+            redirect = <Redirect to={this.state.redirect}/>
+        }
         return (
             <BrowserRouter>
-                <div className='mdl-layout'> 
+                <div className='mdl-layout'>
+                    {redirect}
                     <Header title='My template' profile={this.state.currentProfile}/>
                     <Progressbar />
                     <Alert />
                     <div className='mdl-layout__content'>
                         <div className='mdl-grid'>
-                            <div className='mdl-layout-spacer'></div> 
-                            <div className='mdl-cell mdl-cell--6-col box-shadow'>  
+                            <div className='mdl-layout-spacer'></div>
+                            <div className='mdl-cell mdl-cell--6-col box-shadow'>
                                 <Route exact path='/' component={Home}/>
                                 <Route exact path='/events' component={Events}/>
                                 <Route exact path={'/events/:eventId'} component={Event}/>
@@ -50,9 +57,9 @@ class App extends Reflux.Component {
                                 <Route exact path='/login' component={Login}/>
                                 <Route path='/signup' component={Signup}/>
                                 <Route path='/reset' component={Reset}/>
-                            </div>  
+                            </div>
                             <div className='mdl-layout-spacer'></div>
-                        </div>         
+                        </div>
                     </div>
                 </div>
             </BrowserRouter>

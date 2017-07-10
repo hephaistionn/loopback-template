@@ -2,13 +2,13 @@
 import Reflux from 'reflux';
 import React from 'react';
 import {Link} from 'react-router-dom'
-import {RequestStore} from '../../stores/request'; 
+import {StoreRequest} from '../../stores/request';
 
 class Progressbar extends Reflux.Component { 
     
     constructor(props){
         super(props);
-        this.store = RequestStore; 
+        this.store = StoreRequest;
     }
 
     render() {

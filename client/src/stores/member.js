@@ -2,6 +2,7 @@ import Reflux from 'reflux';
 import {request} from './request';
 import tools from './tools';
 import {actionsAlert} from './alert';
+import {BrowserRouter} from 'react-router-dom'
 
 //Action
 export const actionsMember = Reflux.createActions([
@@ -26,52 +27,44 @@ export class StoreMember extends Reflux.Store {
             currentPassword1:'',
             currentPassword2:'',
             registered: false,
-            currentProfile: null
+            currentProfile: null,
+            redirect: ''
+
         };
         this.checkQueryAuth();
         this.listenables = actionsMember;
     }
 
     onRegister() {
-        request.post('/api/Members/', {
+        return request.post('/api/Members/', {
             email: this.state.currentEmail,
             password: this.state.currentPassword1,
             username: this.state.currentUsername
         })
-            .then(response => {
-                this.setState({registered: true});
-            })
-            .catch(error => {
-                console.log(error);
-            });
+        .then(response => {
+            this.setState({registered: true});
+        });
     }
 
-    onLogin() {
+    onLogin(redirectPath) {
         request.post('/api/Members/login', {
             email: this.state.currentEmail,
             password: this.state.currentPassword1
-        })
-            .then(response => {
-                request.storeToken(response.data.id);
-                localStorage.setItem('member', response.data.userId);
-                return this.onGetProfile();
-            })
-            .then(() => {
-                location.pathname = '/';
-            })
-            .catch(error => {
-                console.log(error);
-            });
+        },null, redirectPath)
+        .then(response => {
+            request.storeToken(response.data.id);
+            localStorage.setItem('member', response.data.userId);
+            return this.onGetProfile();
+        });
     }
 
-    onLogout() {
-        request.post('/api/Members/logout')
-            .then(response => {
-                request.storeToken('');
-                localStorage.setItem('member', '');
-            }).then(() => {
-                location.pathname = '/login/';
-            })
+    onLogout(redirectPath) {
+        request.post('/api/Members/logout', null, null, redirectPath)
+        .then(response => {
+            request.storeToken('');
+            localStorage.setItem('member', '');
+            this.setState({currentProfile: null});
+        });
     }
 
     onChangeUsername(username) {
@@ -93,13 +86,10 @@ export class StoreMember extends Reflux.Store {
     onGetProfile() {
         const userId = localStorage.getItem('member');
         if(userId) {
-            return request.get('/api/Members/' + userId)
-                .then(response => {
-                    this.setState({currentProfile: response.data});
-                })
-                .catch(error => {
-                    this.setState({currentProfile: null});
-                });
+            request.get('/api/Members/' + userId)
+            .then(response => {
+                this.setState({currentProfile: response.data});
+            });
         }
     }
 
@@ -108,12 +98,12 @@ export class StoreMember extends Reflux.Store {
             email: this.state.currentEmail
         };
         request.post('/api/Members/reset', form)
-            .then(response => {
-                actionsAlert.success('Check your email for further instructions');
-            })
+        .then(response => {
+            actionsAlert.success('Check your email for further instructions');
+        });
     }
 
-    onResetConfirm() {
+    onResetConfirm(redirectPath) {
         if(this.state.currentPassword1 !== this.state.currentPassword2) {
             actionsAlert.success('Password not identical');
             return;
@@ -122,11 +112,10 @@ export class StoreMember extends Reflux.Store {
         const form = {
             newPassword: this.state.currentPassword1
         };
-        request.post('/api/Members/reset-password', form)
-            .then(response => {
-                actionsAlert.success('Password updated');
-                location.pathname = '/';
-            });
+        request.post('/api/Members/reset-password', form, null, redirectPath)
+        .then(response => {
+            actionsAlert.success('Password updated');
+        });
     }
 
     checkQueryAuth() {

@@ -19,7 +19,7 @@ class Header extends Reflux.Component {
 
     logout(e) {
         e.preventDefault();
-        actionsMember.logout();
+        actionsMember.logout('/login/')
     }
 
     render() {

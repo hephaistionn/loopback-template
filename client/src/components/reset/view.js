@@ -17,7 +17,7 @@ class Reset extends Reflux.Component {
     }
 
     resetPasswordConfirm(e) {
-        actionsMember.resetConfirm();
+        actionsMember.resetConfirm('/');
         e.preventDefault();  
     }
 

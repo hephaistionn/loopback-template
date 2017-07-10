@@ -20,7 +20,7 @@ class Login extends Reflux.Component {
     }
 
     login(e) {
-        actionsMember.login();
+        actionsMember.login('/')
         e.preventDefault();  
     }
 

@@ -1,9 +1,15 @@
 import Reflux from 'reflux';
-import {request} from './request';
+import {request, actionsRequest} from './request';
 import lodash from 'lodash';
 
 //Action
-export const actionsEvent = Reflux.createActions(['refreshEvent', 'refreshEvents', 'updateEvent', 'saveEvent',  'setPicture']);
+export const actionsEvent = Reflux.createActions([
+    'refreshEvent',
+    'clearEvent',
+    'refreshEvents',
+    'updateEvent',
+    'saveEvent',
+    'setPicture']);
  
 //Store
 export class StoreEvent extends Reflux.Store {
@@ -24,17 +30,26 @@ export class StoreEvent extends Reflux.Store {
     }
 
     onRefreshEvents() {
-        request.get('/api/Events')
+        return request.get('/api/Events')
         .then(response => {
             this.setState({events: response.data});
         });
     }
 
     onRefreshEvent(eventId) {
-        request.get('/api/Events/'+eventId)
+        return request.get('/api/Events/'+eventId)
         .then(response => {
             this.setState({event: response.data});
         });
+    }
+
+    onClearEvent() {
+        this.setState({event: {
+            title: '',
+            description: '',
+            banner: '',
+            id: ''
+        }});
     }
 
     onUpdateEvent(value, id) {
@@ -74,8 +89,9 @@ export class StoreEvent extends Reflux.Store {
         }
 
         function reload(){
-            location.pathname = '/events/'+that.state.event.id+'/editor/';
+            actionsRequest.redirect('/events/'+that.state.event.id+'/editor/');
         }
+
         createOfReplaceEvent()
         .then(refreshEvent)
         .then(uploadPictureEvent)
