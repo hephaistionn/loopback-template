@@ -23,7 +23,6 @@ class Events extends Reflux.Component {
                         <li key={index}>
                         <Link to={'/events/'+event.id}>  
                             <p>title : {event.title}</p>
-                            <p>desc : {event.description}</p>
                         </Link>
                         </li>
                 )} 

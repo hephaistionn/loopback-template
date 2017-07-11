@@ -41,7 +41,7 @@
     }
   },
   "files": {
-    "loopback#static": { 
+    "loopback#static": {
       "paths": [
         "/login/",
         "/events/:id/editor/",
@@ -50,8 +50,8 @@
         "/editor/",
         "/signup/",
         "/reset/",
-         "/"
-       ], 
+        "/"
+      ],
       "params": "$!../client/.dist"
     }
   },

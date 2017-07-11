@@ -5,6 +5,9 @@
   "options": {
     "validateUpsert": true
   },
+  "hidden": [
+    "date"
+  ],
   "properties": {
     "date": {
       "type": "date"
@@ -27,7 +30,6 @@
       "foreignKey": ""
     }
   },
-  "hidden": ["date"],
   "acls": [
     {
       "accessType": "*",

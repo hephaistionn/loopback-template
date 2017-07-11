@@ -2,17 +2,17 @@
 
 module.exports = function(Member) {
     /*
-     * Actions (Remote Methods)
+     * Remote Methods
      */
 
     /*
-     * Actions (Remote Hooks)
+     * Remote Hooks
      */
      require('../hooks/member/emailVerification')(Member);
      require('../hooks/member/resetPassword')(Member);
      require('../hooks/member/prepareContainer')(Member);
     /*
-     * Actions (Listeners)
+     * Listeners
      */
 
 };

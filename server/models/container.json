@@ -9,12 +9,11 @@
   "mixins": {},
   "properties": {
     "ownerId": {
-        "type": "string"
+      "type": "string"
     }
   },
   "validations": [],
-  "relations": {
-  },
+  "relations": {},
   "acls": [],
   "methods": {}
 }

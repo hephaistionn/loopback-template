@@ -2,13 +2,13 @@
 
 module.exports = function(Container) {
     /*
-     * Actions (Remote Methods)
+     * Remote Methods
      */
     /*
-     * Actions (Remote Hooks)
+     * Remote Hooks
      */
     /*
-     * Actions (Listeners)
+     * Listeners
      */
 
     Container.disableRemoteMethod('getContainers', true);

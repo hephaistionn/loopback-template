@@ -10,13 +10,15 @@
     "username": {
       "type": "string",
       "required": true,
-      "index": {"unique": true} 
+      "index": {
+        "unique": true
+      }
     },
     "picture": {
       "type": "string"
     },
     "containerId": {
-        "type": "string"
+      "type": "string"
     }
   },
   "validations": [],
