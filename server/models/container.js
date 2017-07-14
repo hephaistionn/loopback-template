@@ -4,6 +4,8 @@ module.exports = function(Container) {
     /*
      * Remote Methods
      */
+    require('../methods/container/upload')(Container);
+
     /*
      * Remote Hooks
      */

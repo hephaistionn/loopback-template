@@ -27,7 +27,7 @@
     "member": {
       "type": "belongsTo",
       "model": "Member",
-      "foreignKey": ""
+      "foreignKey": "ownerId"
     }
   },
   "acls": [
@@ -48,12 +48,6 @@
       "principalType": "ROLE",
       "principalId": "admin",
       "permission": "ALLOW"
-    },
-    {
-      "principalType": "ROLE",
-      "principalId": "$authenticated",
-      "permission": "ALLOW",
-      "property": "uploadBanner"
     },
     {
       "principalType": "ROLE",

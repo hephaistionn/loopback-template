@@ -62,7 +62,9 @@ export const request = {
         let config  = configData;
         if(formData && formData.constructor.name === 'File') {
             form = new FormData();
-            form.append('banner', formData, formData.name);
+            const name = Math.floor((1 + Math.random()) * 0x100000000000000).toString(16).substring(1);
+            const extension = formData.name.split('.').pop();
+            form.append('file', formData, name + '.' + extension);
             config = {
                 headers: { 'content-type': 'multipart/form-data' }
             };

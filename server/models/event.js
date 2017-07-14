@@ -4,7 +4,6 @@ module.exports = function(Event) {
     /*
      * Remote Methods
      */
-    require('../methods/event/uploadBanner')(Event);
     /*
      * Remote Hooks
      */

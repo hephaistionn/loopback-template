@@ -59,8 +59,13 @@ export class StoreEvent extends Reflux.Store {
     }
 
     onSetPicture(files) {
-        const picture = files[0]; 
-        this.setState({'picture': picture});  
+        const picture = files[0];
+        return request.post('/api/containers/upload/', picture)
+            .then(response=>{
+                const event = this.state.event;
+                event.banner = response.data;
+                this.setState({'event': event});
+            });
     }
 
     onSaveEvent() {
@@ -76,25 +81,11 @@ export class StoreEvent extends Reflux.Store {
                 }
         }
 
-        function refreshEvent(response) {
-            that.setState({event: response.data});
-            return response;
-        }
-
-        function uploadPictureEvent(reponse){
-            if(that.state.picture.name) {
-                return request.post('/api/Events/'+reponse.data.id+'/uploadBanner', that.state.picture)
-                .then(()=>{return reponse.data.id});
-            }
-        }
-
-        function reload(){
-            actionsRequest.redirect('/events/'+that.state.event.id+'/editor/');
+        function reload(response){
+            actionsRequest.redirect('/events/'+response.data.id+'/editor/');
         }
 
         createOfReplaceEvent()
-        .then(refreshEvent)
-        .then(uploadPictureEvent)
         .then(reload);
     }
 }

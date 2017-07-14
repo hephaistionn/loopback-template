@@ -20,6 +20,7 @@ class Event extends Reflux.Component {
             <div className='event mdl-grid'> 
                <h1>{this.state.event.title}</h1>
                <p>{this.state.event.description}</p>
+                <img src={this.state.event.banner} />
                 <Link to={'/events/'+this.state.event.id+'/editor/'}>Edit</Link>
             </div>
         );
