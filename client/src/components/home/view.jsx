@@ -1,10 +1,9 @@
-
 import Reflux from 'reflux';
 import React from 'react';
 
-class Home extends Reflux.Component { 
-    
-    constructor(props){
+class Home extends Reflux.Component {
+
+    constructor(props) {
         super(props);
     }
 
@@ -15,6 +14,6 @@ class Home extends Reflux.Component {
             </div>
         );
     }
-};
+}
 
 export default Home;  

@@ -8,9 +8,9 @@ module.exports = function(Member) {
     /*
      * Remote Hooks
      */
-     require('../hooks/member/emailVerification')(Member);
-     require('../hooks/member/resetPassword')(Member);
-     require('../hooks/member/prepareContainer')(Member);
+    require('../hooks/member/emailVerification')(Member);
+    require('../hooks/member/resetPassword')(Member);
+    require('../hooks/member/prepareContainer')(Member);
     /*
      * Listeners
      */

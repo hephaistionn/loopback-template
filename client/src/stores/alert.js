@@ -2,15 +2,15 @@ import Reflux from 'reflux';
 
 //Action
 export const actionsAlert = Reflux.createActions(['success', 'warning', 'error', 'remove']);
- 
+
 //Store
 export class StoreAlert extends Reflux.Store {
 
-	constructor() {
+    constructor() {
         super();
         this.listenables = actionsAlert;
         this.state = {
-        	alerts:[]
+            alerts: []
         };
         this.duration = 4000;
         this.timeouts = [];
@@ -25,20 +25,22 @@ export class StoreAlert extends Reflux.Store {
     }
 
     onError(message) {
-       this.onAdd(message, 'error');
+        this.onAdd(message, 'error');
     }
 
     onAdd(message, type) {
         this.state.alerts.push({
             message: message,
             type: type,
-            timeout: setTimeout(()=>{actionsAlert.remove()},  this.duration)
+            timeout: setTimeout(()=> {
+                actionsAlert.remove()
+            }, this.duration)
         });
         this.setState({alerts: this.state.alerts});
     }
 
     onRemove(index) {
-        const alert = this.state.alerts.splice(index||0,1)[0];
+        const alert = this.state.alerts.splice(index || 0, 1)[0];
         clearTimeout(alert.timeout);
         this.setState({alerts: this.state.alerts});
     }

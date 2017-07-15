@@ -2,43 +2,39 @@ var path = require('path');
 var loopback = require('loopback');
 
 module.exports = function(Member) {
-  Member.on('resetPasswordRequest', function(modelInstance) {
-      var host = process.env.HOST_NAME;
-      var port = ':'+ process.env.PORT;
-      var protocol = process.env.PROTOCOL;
-      var token = modelInstance.accessToken.id;
-      var email = modelInstance.email;
-      var id = modelInstance.user.id;
-      var username = modelInstance.user.username;
-      
-      var url = '{PROTOCOL}://{HOST_NAME}{PORT}/reset/?token={token}&id={id}'
-        .replace('{PROTOCOL}', protocol)
-        .replace('{HOST_NAME}', host)
-        .replace('{PORT}', port)
-        .replace('{token}', token)
-        .replace('{id}', id);
+    Member.on('resetPasswordRequest', modelInstance => {
+        const host = process.env.HOST_NAME;
+        const port = ':' + process.env.PORT;
+        const protocol = process.env.PROTOCOL;
+        const token = modelInstance.accessToken.id;
+        const email = modelInstance.email;
+        const id = modelInstance.user.id;
+        const username = modelInstance.user.username;
+        const hostmail = host.includes('.') ? host : host + '.com';
 
-      var render = loopback.template(path.resolve(__dirname, '../../templates/reset.ejs'));
-      var html = render({
-          link: url,
-          username: username,
-          title: 'Password reset',
-          content: 'A password change request has been requested. If you want to change your password click on the link below.',
-          redirectToLinkText: 'Reset'
-      });
+        const url = `${protocol}://${host}${port}/reset/?token=${token}&$id=${id}`;
 
-      var options = {
-        type: 'email',
-        to: email,
-        from: 'reset@'+host,
-        subject: 'Password reset',
-        html: html
-      };
+        const render = loopback.template(path.resolve(__dirname, '../../templates/reset.ejs'));
+        const html = render({
+            link: url,
+            username: username,
+            title: 'Password reset',
+            content: 'A password change request has been requested. If you want to change your password click on the link below.',
+            redirectToLinkText: 'Reset'
+        });
 
-      Member.app.models.Email.send(options, function(err) {
-        if (err) {
-          console.log(err.response.body.errors[0])
-        } 
-      });
-  });
+        const options = {
+            type: 'email',
+            to: email,
+            from: `reset@${hostmail}`,
+            subject: 'Password reset',
+            html: html
+        };
+
+        Member.app.models.Email.send(options, function(err) {
+            if(err) {
+                console.log(err.response.body.errors[0])
+            }
+        });
+    });
 }

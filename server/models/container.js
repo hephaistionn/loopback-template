@@ -13,11 +13,11 @@ module.exports = function(Container) {
      * Listeners
      */
 
-    Container.disableRemoteMethod('getContainers', true);
-    Container.disableRemoteMethod('getContainer', true);
-    Container.disableRemoteMethod('createContainer', true);
-    Container.disableRemoteMethod('destroyContainer', true);
-    Container.disableRemoteMethod('getFiles', true);
-    Container.disableRemoteMethod('removeFile', true);
-    Container.disableRemoteMethod('upload', true);
+    Container.disableRemoteMethodByName('getContainers');
+    Container.disableRemoteMethodByName('getContainer');
+    Container.disableRemoteMethodByName('createContainer');
+    Container.disableRemoteMethodByName('destroyContainer');
+    Container.disableRemoteMethodByName('getFiles');
+    Container.disableRemoteMethodByName('removeFile');
+    Container.disableRemoteMethodByName('upload');
 };

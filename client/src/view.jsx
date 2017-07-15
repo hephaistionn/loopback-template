@@ -1,4 +1,3 @@
-
 import {render} from 'react-dom';
 import Reflux from 'reflux';
 import React from 'react';
@@ -22,7 +21,7 @@ import {StoreMember, actionsMember} from './stores/member';
 
 class App extends Reflux.Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
         this.stores = [StoreMain, StoreMember];
     }
@@ -39,6 +38,7 @@ class App extends Reflux.Component {
                     <Header title='My template' profile={this.state.currentMember}/>
                     <Progressbar progress={this.state.progress}/>
                     <Alert />
+
                     <div className='mdl-layout__content'>
                         <div className='mdl-grid'>
                             <div className='mdl-layout-spacer'></div>
@@ -59,7 +59,6 @@ class App extends Reflux.Component {
             </BrowserRouter>
         );
     }
-};
-
+}
 
 render(<App />, document.getElementById('app'));    

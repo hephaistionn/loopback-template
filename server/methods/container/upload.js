@@ -1,11 +1,10 @@
 'use strict';
-const path = require('path');
 const Promise = require("bluebird");
 
 module.exports = function(Container) {
-    Container.uploadFile = function(context, req) {
+    Container.uploadFile = (context, req) => {
         const userId = req.accessToken.userId;
-        const containerId  = 'container' + userId;
+        const containerId = `container${userId}`;
         const Member = Container.app.models.Member;
         let member;
 
@@ -18,8 +17,7 @@ module.exports = function(Container) {
             .then(uploadFile)
             .then(response);
 
-
-        function getMember(){
+        function getMember() {
             return Member.find({
                 where: {
                     id: userId
@@ -36,8 +34,8 @@ module.exports = function(Container) {
         }
 
         function checkContainerExistence() {
-            var deferred = Promise.defer();
-            Container.getContainer(containerId, (err, data)=>{
+            const deferred = Promise.defer();
+            Container.getContainer(containerId, (err, data)=> {
                 if(err)
                     deferred.resolve();
                 else
@@ -48,7 +46,7 @@ module.exports = function(Container) {
 
         function createContainer(hasContainer) {
             if(hasContainer) return;
-            var deferred = Promise.defer();
+            const deferred = Promise.defer();
             Container.createContainer({name: containerId}, (err, data) => {
                 return (err) ? deferred.reject(err) : deferred.resolve(data);
             });
@@ -59,9 +57,9 @@ module.exports = function(Container) {
             const currentFiles = [];
             if(member.avatar)
                 currentFiles.push(member.avatar);
-            var deferred = Promise.defer();
+            const deferred = Promise.defer();
             member.events.getAsync((err, events) => {
-                events.map(event=>{
+                events.map(event=> {
                     if(event.banner)
                         currentFiles.push(event.banner);
                 });
@@ -73,12 +71,12 @@ module.exports = function(Container) {
 
         function getContainerFiles(currentFiles) {
             const userless = [];
-            var deferred = Promise.defer();
-            Container.getFiles(containerId, (err, files)=>{
+            const deferred = Promise.defer();
+            Container.getFiles(containerId, (err, files)=> {
                 if(err) deferred.reject(err);
-                files.map((file)=>{
+                files.map((file)=> {
                     const fileUrl = urlCompose(file.container, file.name);
-                    if(currentFiles.indexOf(fileUrl) === -1){
+                    if(currentFiles.indexOf(fileUrl) === -1) {
                         userless.push(file.name);
                     }
                 });
@@ -89,9 +87,9 @@ module.exports = function(Container) {
 
         function deleteUserlessFiles(userless) {
             if(!userless.length) return;
-            var deferred = Promise.defer();
+            const deferred = Promise.defer();
             Promise.map(userless, fileName => {
-                Container.removeFile(containerId, fileName, (err, data)=>{
+                Container.removeFile(containerId, fileName, (err, data)=> {
                     return (err) ? deferred.reject(err) : deferred.resolve(data);
                 });
             });
@@ -99,9 +97,9 @@ module.exports = function(Container) {
         }
 
         function uploadFile() {
-            var deferred = Promise.defer();
+            const deferred = Promise.defer();
             context.req.params.container = containerId;
-            Container.upload(context.req, context.res,(err, data) => {
+            Container.upload(context.req, context.res, (err, data) => {
                 return (err) ? deferred.reject(err) : deferred.resolve(data);
             });
             return deferred.promise;
@@ -109,12 +107,11 @@ module.exports = function(Container) {
 
         function response(responseUpload) {
             const file = responseUpload.files.file[0];
-            const url = urlCompose(file.container, file.name);
-            return url;
+            return urlCompose(file.container, file.name);
         }
 
-        function urlCompose(containerName, fileName){
-            return '/api/Containers/'+containerName+'/download/'+fileName;
+        function urlCompose(containerName, fileName) {
+            return '/api/Containers/' + containerName + '/download/' + fileName;
         }
     };
 

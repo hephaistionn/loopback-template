@@ -35,8 +35,7 @@ export class StoreMember extends Reflux.Store {
             email: this.state.member.email,
             password: this.state.member.password1,
             username: this.state.member.username
-        })
-        .then(response => {
+        }).then(() => {
             this.setState({registered: true, member: {}});
         });
     }
@@ -44,27 +43,22 @@ export class StoreMember extends Reflux.Store {
     onLogin(redirectPath) {
         request.post('/api/Members/login', {
             email: this.state.member.email,
-            password:  this.state.member.password1
-        })
-        .then(response => {
+            password: this.state.member.password1
+        }).then(response => {
             request.storeToken(response.data.id);
             localStorage.setItem('member', response.data.userId);
             return this.onLoadCurrentMember();
-        })
-        .then(()=>{
+        }).then(()=> {
             actionsMain.redirect(redirectPath);
         })
     }
 
     onLogout(redirectPath) {
-        debugger;
-        request.post('/api/Members/logout')
-        .then(response => {
+        request.post('/api/Members/logout').then(() => {
             request.storeToken('');
             localStorage.setItem('currentMember', '');
             this.onRemoveCurrentMember();
-        })
-        .then(()=>{
+        }).then(()=> {
             actionsMain.redirect(redirectPath);
         })
     }
@@ -79,8 +73,7 @@ export class StoreMember extends Reflux.Store {
         const form = {
             email: this.state.currentEmail
         };
-        request.post('/api/Members/reset', form)
-        .then(response => {
+        request.post('/api/Members/reset', form).then( () => {
             actionsAlert.success('Check your email for further instructions');
         });
     }
@@ -94,8 +87,7 @@ export class StoreMember extends Reflux.Store {
         const form = {
             newPassword: this.state.currentPassword1
         };
-        request.post('/api/Members/reset-password', form)
-        .then(response => {
+        request.post('/api/Members/reset-password', form).then( () => {
             actionsAlert.success('Password updated');
             actionsMain.redirect(redirectPath);
         });
@@ -110,19 +102,17 @@ export class StoreMember extends Reflux.Store {
     }
 
     onLoadMember(memberId) {
-        request.get('/api/Members/' + userId)
-            .then(response => {
-                this.setState({member: response.data});
-            });
+        request.get('/api/Members/' + memberId).then(response => {
+            this.setState({member: response.data});
+        });
     }
 
     onLoadCurrentMember() {
         const userId = localStorage.getItem('member');
         if(userId) {
-            request.get('/api/Members/' + userId)
-                .then(response => {
-                    this.setState({'currentMember': response.data});
-                });
+            request.get('/api/Members/' + userId).then(response => {
+                this.setState({'currentMember': response.data});
+            });
         }
     }
 

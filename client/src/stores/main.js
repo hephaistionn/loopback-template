@@ -1,6 +1,4 @@
 import Reflux from 'reflux';
-import {actionsAlert} from './alert';
-import request from '../tools/request';
 
 //Action
 export const actionsMain = Reflux.createActions([
