@@ -9,24 +9,9 @@ class Signup extends Reflux.Component {
         this.store = StoreMember; 
     }  
 
-    changeUsername(e) {
-        actionsMember.changeUsername(e.target.value);
-        e.preventDefault(); 
-    }
-
-    changePassword1(e) {
-        actionsMember.changePassword1(e.target.value);
-        e.preventDefault(); 
-    }
-
-    changePassword2(e) {
-        actionsMember.changePassword2(e.target.value);
-        e.preventDefault(); 
-    }
-
-    changeEmail(e) {
-        actionsMember.changeEmail(e.target.value); 
-        e.preventDefault(); 
+    updateForm(e) {
+        actionsMember.updateMember(e.target.value, e.target.name);
+        e.preventDefault();
     }
 
     register(e) {
@@ -39,10 +24,10 @@ class Signup extends Reflux.Component {
             return (
                 <div className='login mdl-grid'>  
                     <form  onSubmit={this.register}>
-                        <input type='text' placeholder='email' value={this.state.currentEmail} onChange={this.changeEmail}/>
-                        <input type='text' placeholder='username' value={this.state.currentUsername} onChange={this.changeUsername}/>
-                        <input type='password' placeholder='password' value={this.state.currentPassword1} onChange={this.changePassword1}/>
-                        <input type='password' placeholder='password' value={this.state.currentPassword2} onChange={this.changePassword2}/>
+                        <input name='email' type='text' placeholder='email' value={this.state.currentEmail} onChange={this.updateForm}/>
+                        <input name='username' type='text' placeholder='username' value={this.state.currentUsername} onChange={this.updateForm}/>
+                        <input name='password1' type='password' placeholder='password' value={this.state.currentPassword1} onChange={this.updateForm}/>
+                        <input name='password2' type='password' placeholder='password' value={this.state.currentPassword2} onChange={this.updateForm}/>
                         <input type='submit' value='Register' />
                     </form>
                 </div>

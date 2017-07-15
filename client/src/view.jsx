@@ -16,34 +16,28 @@ import Progressbar from './components/progressbar/view';
 import Alert from './components/alert/view';
 import Reset from './components/reset/view';
 
-
 //STORE
+import {StoreMain, actionsMain} from './stores/main';
 import {StoreMember, actionsMember} from './stores/member';
-import {StoreRequest} from './stores/request';
-import {StoreAlert} from './stores/alert';
 
 class App extends Reflux.Component {
 
     constructor(props){
         super(props);
-        this.stores = [StoreMember, StoreRequest];
+        this.stores = [StoreMain, StoreMember];
     }
 
     componentDidMount() {
-        actionsMember.getProfile();
+        actionsMember.loadCurrentMember();
     }
 
     render() {
-        let redirect = null;
-        if(this.state.redirect) {
-            redirect = <Redirect to={this.state.redirect}/>
-        }
         return (
             <BrowserRouter>
                 <div className='mdl-layout'>
-                    {redirect}
-                    <Header title='My template' profile={this.state.currentProfile}/>
-                    <Progressbar />
+                    {this.state.redirect && <Redirect to={this.state.redirect}/>}
+                    <Header title='My template' profile={this.state.currentMember}/>
+                    <Progressbar progress={this.state.progress}/>
                     <Alert />
                     <div className='mdl-layout__content'>
                         <div className='mdl-grid'>

@@ -1,35 +1,30 @@
 import Reflux from 'reflux';
-import {request} from './request';
-import tools from './tools';
+import request from '../tools/request';
+import parser from '../tools/parser';
 import {actionsAlert} from './alert';
-import {BrowserRouter} from 'react-router-dom'
+import {actionsMain} from './main';
 
 //Action
 export const actionsMember = Reflux.createActions([
     'register',
     'login',
     'logout',
-    'getProfile',
-    'changeUsername',
-    'changePassword1',
-    'changePassword2',
-    'changeEmail',
+    'updateMember',
     'resetPassword',
-    'resetConfirm']);
+    'resetConfirm',
+    'loadCurrentMember',
+    'loadMember',
+    'removeCurrentMember'
+]);
 //Store
 export class StoreMember extends Reflux.Store {
 
     constructor() {
         super();
         this.state = {
-            currentUsername:'',
-            currentEmail: '',
-            currentPassword1:'',
-            currentPassword2:'',
-            registered: false,
-            currentProfile: null,
-            redirect: ''
-
+            member: {},
+            currentMember: {},
+            registered: false
         };
         this.checkQueryAuth();
         this.listenables = actionsMember;
@@ -37,60 +32,47 @@ export class StoreMember extends Reflux.Store {
 
     onRegister() {
         return request.post('/api/Members/', {
-            email: this.state.currentEmail,
-            password: this.state.currentPassword1,
-            username: this.state.currentUsername
+            email: this.state.member.email,
+            password: this.state.member.password1,
+            username: this.state.member.username
         })
         .then(response => {
-            this.setState({registered: true});
+            this.setState({registered: true, member: {}});
         });
     }
 
     onLogin(redirectPath) {
         request.post('/api/Members/login', {
-            email: this.state.currentEmail,
-            password: this.state.currentPassword1
-        },null, redirectPath)
+            email: this.state.member.email,
+            password:  this.state.member.password1
+        })
         .then(response => {
             request.storeToken(response.data.id);
             localStorage.setItem('member', response.data.userId);
-            return this.onGetProfile();
-        });
+            return this.onLoadCurrentMember();
+        })
+        .then(()=>{
+            actionsMain.redirect(redirectPath);
+        })
     }
 
     onLogout(redirectPath) {
-        request.post('/api/Members/logout', null, null, redirectPath)
+        debugger;
+        request.post('/api/Members/logout')
         .then(response => {
             request.storeToken('');
-            localStorage.setItem('member', '');
-            this.setState({currentProfile: null});
-        });
+            localStorage.setItem('currentMember', '');
+            this.onRemoveCurrentMember();
+        })
+        .then(()=>{
+            actionsMain.redirect(redirectPath);
+        })
     }
 
-    onChangeUsername(username) {
-        this.setState({currentUsername: username});
-    }
-
-    onChangePassword1(password) {
-        this.setState({currentPassword1: password});
-    }
-
-    onChangePassword2(password) {
-        this.setState({currentPassword2: password});
-    }
-
-    onChangeEmail(email) {
-        this.setState({currentEmail: email});
-    }
-
-    onGetProfile() {
-        const userId = localStorage.getItem('member');
-        if(userId) {
-            request.get('/api/Members/' + userId)
-            .then(response => {
-                this.setState({currentProfile: response.data});
-            });
-        }
+    onUpdateMember(value, id) {
+        const member = this.state.member;
+        member[id] = value;
+        this.setState({member: member});
     }
 
     onResetPassword() {
@@ -112,18 +94,40 @@ export class StoreMember extends Reflux.Store {
         const form = {
             newPassword: this.state.currentPassword1
         };
-        request.post('/api/Members/reset-password', form, null, redirectPath)
+        request.post('/api/Members/reset-password', form)
         .then(response => {
             actionsAlert.success('Password updated');
+            actionsMain.redirect(redirectPath);
         });
     }
 
     checkQueryAuth() {
-        const query = tools.getQuery();
+        const query = parser.getQuery();
         if(query.token && query.id) {
             request.storeToken(query.token);
             localStorage.setItem('member', query.id);
         }
+    }
+
+    onLoadMember(memberId) {
+        request.get('/api/Members/' + userId)
+            .then(response => {
+                this.setState({member: response.data});
+            });
+    }
+
+    onLoadCurrentMember() {
+        const userId = localStorage.getItem('member');
+        if(userId) {
+            request.get('/api/Members/' + userId)
+                .then(response => {
+                    this.setState({'currentMember': response.data});
+                });
+        }
+    }
+
+    onRemoveCurrentMember() {
+        this.setState({'currentMember': {}});
     }
 
 }

@@ -1,5 +1,4 @@
 import Reflux from 'reflux';
-import {request} from './request'; 
 
 //Action
 export const actionsAlert = Reflux.createActions(['success', 'warning', 'error', 'remove']);

@@ -25,7 +25,7 @@ class Header extends Reflux.Component {
     render() {
 
         const nav  = [];
-        if(this.props.profile){
+        if(this.props.profile.id){
           nav.push(<Link className='mdl-navigation__link' key={0} to={'/'}>Home</Link>);
           nav.push(<Link className='mdl-navigation__link' key={1} to={'/events'}>Event</Link>);
           nav.push(<a className='mdl-navigation__link' onClick={this.logout} key={3}>Logout</a>);

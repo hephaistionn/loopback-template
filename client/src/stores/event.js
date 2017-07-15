@@ -1,5 +1,7 @@
 import Reflux from 'reflux';
-import {request, actionsRequest} from './request';
+import request from '../tools/request';
+import {actionsAlert} from './alert';
+import {actionsMain} from './main';
 import lodash from 'lodash';
 
 //Action
@@ -82,7 +84,8 @@ export class StoreEvent extends Reflux.Store {
         }
 
         function reload(response){
-            actionsRequest.redirect('/events/'+response.data.id+'/editor/');
+            actionsAlert.success('Event saved');
+            actionsMain.redirect('/events/'+response.data.id+'/editor/');
         }
 
         createOfReplaceEvent()
