@@ -1,4 +1,17 @@
 
 .events {
-	background: white;
+  background: white;
+
+  .mdl-card {
+    background-position: center;
+    background-size: cover;
+    margin: 1rem;
+    float: left;
+  }
+  .mdl-card__title {
+    color: #fff;
+    text-shadow: 0 0 3px black;
+    font-size: x-large;
+  }
+
 } 

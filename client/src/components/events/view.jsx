@@ -16,17 +16,20 @@ class Events extends Reflux.Component {
 
     render() {
         return (
-            <div className='events  mdl-grid'>
-                <ul>
-                    {this.state.events.map((event, index) =>
-                            <li key={index}>
-                                <Link to={'/events/'+event.id}>
-                                    <p>title : {event.title}</p>
+            <div className='events'>
+                <div className="mdl-grid">
+                    <Link className="mdl-button mdl-js-button mdl-button--raised" to={'/editor/'}>Create an Event</Link>
+                </div>
+                <div className="mdl-grid">
+                    <div className='mdl-cell mdl-cell--12-col'>
+                        {this.state.events.map((event, index) =>
+                                <Link className='mdl-card mdl-shadow--4dp' to={'/events/'+event.id} key={index}
+                                      style={{backgroundImage:'url(' + event.banner + ')'}}>
+                                    <div className='mdl-card__title'>{event.title}</div>
                                 </Link>
-                            </li>
-                    )}
-                </ul>
-                <Link to={'/editor/'}>Create an Event</Link>
+                        )}
+                    </div>
+                </div>
             </div>
         );
     }

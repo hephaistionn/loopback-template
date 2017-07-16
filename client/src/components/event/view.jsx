@@ -20,11 +20,22 @@ class Event extends Reflux.Component {
         let memberId = this.state.currentMember.id;
         const urlEdit = '/events/' + event.id + '/editor/';
         return (
-            <div className='event mdl-grid'>
-                <h1>{event.title}</h1>
-                <p>{event.description}</p>
-                <img src={event.banner}/>
-                {event.ownerId === memberId && <Link to={urlEdit}>Edit</Link>}
+            <div className='event'>
+                <div className="mdl-grid">
+                    <div className='mdl-cell mdl-cell--8-col'>
+                        <div className="mdl-grid">
+                            <h1>{event.title}</h1>
+                        </div>
+                        <div className="mdl-grid">
+                            <p>{event.description}</p>
+                        </div>
+                    </div>
+                    <img className='mdl-cell mdl-cell--4-col' src={event.banner}/>
+                </div>
+                <div className="mdl-grid">
+                    {event.ownerId === memberId &&
+                    <Link className="mdl-button mdl-js-button mdl-button--raised" to={urlEdit}>Edit</Link>}
+                </div>
             </div>
         );
     }
